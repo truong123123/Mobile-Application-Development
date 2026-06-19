@@ -191,7 +191,7 @@ class _PhotoSearchScreenState extends State<PhotoSearchScreen>
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(0xFFDB3022)
-                                      .withOpacity(0.5),
+                                      .withValues(alpha: 0.5),
                                   blurRadius: 20,
                                   spreadRadius: 4,
                                 ),
@@ -260,8 +260,8 @@ class _ControlButton extends StatelessWidget {
         height: 48,
         decoration: BoxDecoration(
           color: active
-              ? Colors.white.withOpacity(0.25)
-              : Colors.white.withOpacity(0.12),
+              ? Colors.white.withValues(alpha: 0.25)
+              : Colors.white.withValues(alpha: 0.12),
           shape: BoxShape.circle,
         ),
         child: Icon(icon,
@@ -276,7 +276,7 @@ class _ViewfinderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.6)
+      ..color = Colors.white.withValues(alpha: 0.6)
       ..strokeWidth = 2.5
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;

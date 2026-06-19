@@ -1,0 +1,1073 @@
+﻿{
+    "value":  [
+                  {
+                      "id":  "e899234a-63d8-4384-95b4-787048f14fac",
+                      "productName":  "Evening Dress",
+                      "brandName":  "Dorothy Perkins",
+                      "imageUrl":  "/images/product1.jpg",
+                      "salePrice":  121.0,
+                      "comparePrice":  15.0,
+                      "quantity":  50,
+                      "shortDescription":  "Äáº§m dáº¡ há»i thanh lá»ch dÃ¡ng há»ng",
+                      "productDescription":  "Äáº§m dáº¡ há»i phong cÃ¡ch thanh lá»ch, cháº¥t liá»u mÃ¡t máº» phÃ¹ há»£p cho mÃ¹a hÃ¨.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  10,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "c3e9c25e-ef55-4426-803a-689283d6c269",
+                      "productName":  "Sport Dress",
+                      "brandName":  "Sitlly",
+                      "imageUrl":  "/images/product2.jpg",
+                      "salePrice":  19.0,
+                      "comparePrice":  22.0,
+                      "quantity":  30,
+                      "shortDescription":  "Äáº§m thá» thao nÄng Äá»ng co giÃ£n",
+                      "productDescription":  "Äáº§m thá» thao dÃ¡ng suÃ´ng dÃ i nÄng Äá»ng, cháº¥t liá»u cotton co giÃ£n cao cáº¥p.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  10,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Navy",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "ca9ba961-b885-4ec3-b95e-15551601476c",
+                      "productName":  "Oversize T-Shirt",
+                      "brandName":  "GUCCI",
+                      "imageUrl":  "/images/product3.jpg",
+                      "salePrice":  650.0,
+                      "comparePrice":  0.0,
+                      "quantity":  15,
+                      "shortDescription":  "Ão thun form rá»ng Gucci há»a tiáº¿t cao cáº¥p",
+                      "productDescription":  "Ão thun form rá»ng cao cáº¥p tá»« thÆ°Æ¡ng hiá»u Gucci thá»i trang phong cÃ¡ch.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.5,
+                      "reviewCount":  8,
+                      "sizes":  [
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "6ac026a5-d77e-4e6a-ab56-11187be4384f",
+                      "productName":  "Blouse",
+                      "brandName":  "Dorothy Perkins",
+                      "imageUrl":  "/images/top2.jpg",
+                      "salePrice":  14.0,
+                      "comparePrice":  21.0,
+                      "quantity":  15,
+                      "shortDescription":  "Ão blouse Dororthy ná»¯ tÃ­nh thanh lá»ch",
+                      "productDescription":  "Ão blouse Dorothy Perkins cháº¥t liá»u voan nháº¹ má»m máº¡i ná»¯ tÃ­nh.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  10,
+                      "sizes":  [
+                                    "S",
+                                    "XS",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Navy",
+                                     "White",
+                                     "Beige"
+                                 ]
+                  },
+                  {
+                      "id":  "efd7f442-7ab4-459e-a980-01f0c09d08f5",
+                      "productName":  "Shirt",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/top3.jpg",
+                      "salePrice":  9.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão sÆ¡ mi Mango cÆ¡ báº£n",
+                      "productDescription":  "Ão sÆ¡ mi ná»¯ Mango kiá»u dÃ¡ng basic dá»\u0085 phá»i Äá».",
+                      "productType":  "simple",
+                      "ratingAverage":  0.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "8922fa52-7f5e-45f3-8ac3-15aab0713a8a",
+                      "productName":  "Light blouse",
+                      "brandName":  "Dorothy Perkins",
+                      "imageUrl":  "/images/top4.jpg",
+                      "salePrice":  14.0,
+                      "comparePrice":  21.0,
+                      "quantity":  25,
+                      "shortDescription":  "Ão blouse nháº¹ Dorothy Perkins",
+                      "productDescription":  "Ão blouse má»ng nháº¹ Dorothy Perkins phong cÃ¡ch nháº¹ nhÃ ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  10,
+                      "sizes":  [
+                                    "S",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Navy",
+                                     "Beige"
+                                 ]
+                  },
+                  {
+                      "id":  "4d1df541-1f6c-4320-b756-89cc329b5031",
+                      "productName":  "Pullover",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/196821446211474674.webp",
+                      "salePrice":  51.0,
+                      "comparePrice":  0.0,
+                      "quantity":  15,
+                      "shortDescription":  "Ão len Pullover Mango áº¥m Ã¡p",
+                      "productDescription":  "Ão len cá» trÃ²n Pullover Mango thiáº¿t káº¿ thá»i trang, giá»¯ áº¥m tá»t.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.5,
+                      "reviewCount":  12,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "Navy",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "ef7339e2-d63e-4ab8-be84-2b86c2cc2a3c",
+                      "productName":  "Dark Lace-up Boots",
+                      "brandName":  "GUCCI",
+                      "imageUrl":  "/images/dark_lace_boots.jpg",
+                      "salePrice":  320.0,
+                      "comparePrice":  0.0,
+                      "quantity":  10,
+                      "shortDescription":  "GiÃ y bá»t buá»c dÃ¢y phong cÃ¡ch huyá»n bÃ­",
+                      "productDescription":  "GiÃ y bá»t cao cá» buá»c dÃ¢y phong cÃ¡ch cÃ¡ tÃ­nh, cháº¥t liá»u da cao cáº¥p vÃ  Ãªm Ã¡i.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  5,
+                      "sizes":  [
+                                    "39",
+                                    "40",
+                                    "41",
+                                    "42"
+                                ],
+                      "colors":  [
+                                     "Brown",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "03778c60-7417-44fd-8f61-0b1c5b1f9f84",
+                      "productName":  "Running Sneakers",
+                      "brandName":  "adidas Originals",
+                      "imageUrl":  "/images/305541155989398952.jpg",
+                      "salePrice":  85.0,
+                      "comparePrice":  120.0,
+                      "quantity":  30,
+                      "shortDescription":  "GiÃ y thá» thao cháº¡y bá» adidas nÄng Äá»ng",
+                      "productDescription":  "GiÃ y cháº¡y bá» adidas Originals Ãªm chÃ¢n, thoÃ¡ng khÃ­, nÃ¢ng Äá»¡ bÃ n chÃ¢n tá»i Æ°u.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.8,
+                      "reviewCount":  25,
+                      "sizes":  [
+                                    "40",
+                                    "41",
+                                    "42",
+                                    "43"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "b44c86f4-806b-4ba6-80ce-0084011f0313",
+                      "productName":  "Yankees Baseball Hat",
+                      "brandName":  "s.Oliver",
+                      "imageUrl":  "/images/yankees_hat.webp",
+                      "salePrice":  150.0,
+                      "comparePrice":  0.0,
+                      "quantity":  8,
+                      "shortDescription":  "MÅ© lÆ°á»¡i trai Yankees phong cÃ¡ch tráº» trung",
+                      "productDescription":  "MÅ© lÆ°á»¡i trai thÆ°Æ¡ng hiá»u New York Yankees thiáº¿t káº¿ phá»i mÃ u cÃ¡ tÃ­nh, nÄng Äá»ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.7,
+                      "reviewCount":  14,
+                      "sizes":  [
+                                    "One Size"
+                                ],
+                      "colors":  [
+                                     "Silver",
+                                     "Gold",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "eeb7f37c-76eb-4e46-809f-93c7e8647ee3",
+                      "productName":  "Leather Belt",
+                      "brandName":  "Jack \u0026 Jones",
+                      "imageUrl":  "/images/239324167992268840.webp",
+                      "salePrice":  25.0,
+                      "comparePrice":  40.0,
+                      "quantity":  40,
+                      "shortDescription":  "Tháº¯t lÆ°ng da Jack \u0026 Jones",
+                      "productDescription":  "Tháº¯t lÆ°ng da tháº­t Jack \u0026 Jones bá»n bá», khÃ³a kim loáº¡i cao cáº¥p phong cÃ¡ch nam tÃ­nh.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.4,
+                      "reviewCount":  9,
+                      "sizes":  [
+                                    "90",
+                                    "95",
+                                    "85"
+                                ],
+                      "colors":  [
+                                     "Brown",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "f3ddbb1c-6391-44a6-ab54-9c31fbd87b3f",
+                      "productName":  "Summer Cap",
+                      "brandName":  "adidas",
+                      "imageUrl":  "/images/293578469481928406.webp",
+                      "salePrice":  18.0,
+                      "comparePrice":  25.0,
+                      "quantity":  100,
+                      "shortDescription":  "MÅ© lÆ°á»¡i trai adidas mÃ¹a hÃ¨",
+                      "productDescription":  "MÅ© lÆ°á»¡i trai thá» thao adidas cháº¥t liá»u thoÃ¡ng mÃ¡t, chá»ng náº¯ng tá»t.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.6,
+                      "reviewCount":  30,
+                      "sizes":  [
+                                    "One Size"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "e450e0bd-0194-4677-9658-04879ff09052",
+                      "productName":  "Trendy Jacket",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/image.png",
+                      "salePrice":  75.0,
+                      "comparePrice":  0.0,
+                      "quantity":  12,
+                      "shortDescription":  "Ão khoÃ¡c giÃ³ thá»i trang Mango",
+                      "productDescription":  "Ão khoÃ¡c giÃ³ Mango thiáº¿t káº¿ cÃ¡ tÃ­nh, chá»ng giÃ³ chá»ng nÆ°á»c nháº¹.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.5,
+                      "reviewCount":  6,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Beige",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "c35263d0-2168-4be5-95e3-d10b36a97d04",
+                      "productName":  "Casual Hoodie",
+                      "brandName":  "adidas Originals",
+                      "imageUrl":  "/images/image (1).png",
+                      "salePrice":  65.0,
+                      "comparePrice":  0.0,
+                      "quantity":  20,
+                      "shortDescription":  "Ão ná» Hoodie adidas Originals",
+                      "productDescription":  "Ão ná» cÃ³ mÅ© adidas Originals má»m máº¡i phong cÃ¡ch nÄng Äá»ng thá» thao.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.7,
+                      "reviewCount":  18,
+                      "sizes":  [
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Gray",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "c31cf5e6-b92e-4978-9a84-51c14c6f5bc5",
+                      "productName":  "Active Wear",
+                      "brandName":  "adidas",
+                      "imageUrl":  "/images/image (2).png",
+                      "salePrice":  40.0,
+                      "comparePrice":  60.0,
+                      "quantity":  30,
+                      "shortDescription":  "Bá» Äá» thá» thao adidas nÄng Äá»ng",
+                      "productDescription":  "Bá» quáº§n Ã¡o thá» thao adidas thoÃ¡ng mÃ¡t phÃ¹ há»£p luyá»n táº­p.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.3,
+                      "reviewCount":  8,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "f1968db4-80af-4fdd-b5ee-152fc2ad3ddb",
+                      "productName":  "Denim Jacket",
+                      "brandName":  "Jack \u0026 Jones",
+                      "imageUrl":  "/images/image (3).png",
+                      "salePrice":  89.0,
+                      "comparePrice":  0.0,
+                      "quantity":  15,
+                      "shortDescription":  "Ão khoÃ¡c bÃ² Denim Jack \u0026 Jones",
+                      "productDescription":  "Ão khoÃ¡c Denim bÃ² nam tá»« thÆ°Æ¡ng hiá»u Jack \u0026 Jones phong cÃ¡ch bá»¥i báº·m.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.8,
+                      "reviewCount":  10,
+                      "sizes":  [
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Blue",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "586ff808-fb3b-447e-af5c-c590d9ccea68",
+                      "productName":  "Warm Parka",
+                      "brandName":  "Blend",
+                      "imageUrl":  "/images/image (4).png",
+                      "salePrice":  110.0,
+                      "comparePrice":  160.0,
+                      "quantity":  15,
+                      "shortDescription":  "Ão khoÃ¡c áº¥m phao Parka Blend",
+                      "productDescription":  "Ão khoÃ¡c giá»¯ áº¥m chá»ng tuyáº¿t Parka Blend phong cÃ¡ch Báº¯c Ãu áº¥m Ã¡p.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.6,
+                      "reviewCount":  22,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Navy",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "1b38979f-be3d-4c4f-8e00-9bc7e8f38059",
+                      "productName":  "Elegant Suit",
+                      "brandName":  "Boutique Moschino",
+                      "imageUrl":  "/images/image (5).png",
+                      "salePrice":  450.0,
+                      "comparePrice":  0.0,
+                      "quantity":  5,
+                      "shortDescription":  "Bá» Suit Moschino sang trá»ng quÃ½ phÃ¡i",
+                      "productDescription":  "Bá» Comple Suit thiáº¿t káº¿ cao cáº¥p tá»« thÆ°Æ¡ng hiá»u Boutique Moschino thanh lá»ch.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  2,
+                      "sizes":  [
+                                    "S",
+                                    "XS",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Beige",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "dd72cc1c-219b-48ae-b37d-8c1fbab06fad",
+                      "productName":  "Winter Coat",
+                      "brandName":  "Champion",
+                      "imageUrl":  "/images/image (6).png",
+                      "salePrice":  125.0,
+                      "comparePrice":  0.0,
+                      "quantity":  18,
+                      "shortDescription":  "Ão khoÃ¡c phao dÃ y áº¥m Champion",
+                      "productDescription":  "Ão phao dÃ y mÃ¹a ÄÃ´ng Champion giá»¯ áº¥m tá»i Æ°u phom dÃ¡ng thá» thao.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.4,
+                      "reviewCount":  14,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Black",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "3402f49d-b2e0-4b47-9913-1d04fc0a218f",
+                      "productName":  "Fashion Cardigan",
+                      "brandName":  "s.Oliver",
+                      "imageUrl":  "/images/image (7).png",
+                      "salePrice":  45.0,
+                      "comparePrice":  65.0,
+                      "quantity":  25,
+                      "shortDescription":  "Ão len má»ng Cardigan s.Oliver",
+                      "productDescription":  "Ão len cÃ i khuy má»ng nháº¹ Cardigan s.Oliver tráº» trung nÄng Äá»ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.6,
+                      "reviewCount":  9,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Beige"
+                                 ]
+                  },
+                  {
+                      "id":  "9f636763-3547-494b-b840-f8ec12fee541",
+                      "productName":  "Slim Fit Jeans",
+                      "brandName":  "Diesel",
+                      "imageUrl":  "/images/image (8).png",
+                      "salePrice":  110.0,
+                      "comparePrice":  0.0,
+                      "quantity":  35,
+                      "shortDescription":  "Quáº§n Jeans bÃ² Diesel dÃ¡ng Ã´m",
+                      "productDescription":  "Quáº§n bÃ² nam Jeans dÃ¡ng Ã´m Slim Fit co giÃ£n thoáº£i mÃ¡i hiá»u Diesel.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.7,
+                      "reviewCount":  17,
+                      "sizes":  [
+                                    "33",
+                                    "30",
+                                    "31",
+                                    "32"
+                                ],
+                      "colors":  [
+                                     "Blue",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "705505d3-5acb-4116-9970-0cdb7329451e",
+                      "productName":  "Leather Handbag",
+                      "brandName":  "Red Valentino",
+                      "imageUrl":  "/images/image (9).png",
+                      "salePrice":  290.0,
+                      "comparePrice":  0.0,
+                      "quantity":  8,
+                      "shortDescription":  "TÃºi xÃ¡ch da cao cáº¥p Red Valentino",
+                      "productDescription":  "TÃºi xÃ¡ch ná»¯ cháº¥t liá»u da cao cáº¥p chÃ­nh hÃ£ng Red Valentino sang xá»n má»n.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  3,
+                      "sizes":  [
+                                    "One Size"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Beige",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "44f49c5a-cdd4-4f34-9ef6-595807cc7f69",
+                      "productName":  "Wonyoung Summer Dress",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/jang wonyoung.jpg",
+                      "salePrice":  95.0,
+                      "comparePrice":  0.0,
+                      "quantity":  12,
+                      "shortDescription":  "Äáº§m hÃ¨ phong cÃ¡ch Jang WonYoung",
+                      "productDescription":  "Äáº§m hÃ¨ phong cÃ¡ch tráº» trung phá»i ren hoa ngá»t ngÃ o hiá»u Mango.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.9,
+                      "reviewCount":  19,
+                      "sizes":  [
+                                    "S",
+                                    "XS",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "White",
+                                     "Beige"
+                                 ]
+                  },
+                  {
+                      "id":  "119c8e1f-3f71-4d5c-9f2e-f1aa7bff5a03",
+                      "productName":  "Sport T-Shirt",
+                      "brandName":  "adidas",
+                      "imageUrl":  "/images/z7888710050382_c815de657ca1f5b7ddcbf867874e8f03.jpg",
+                      "salePrice":  29.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão thun thá» thao adidas thoÃ¡ng mÃ¡t",
+                      "productDescription":  "Ão thun thá» thao adidas cháº¥t liá»u thoÃ¡ng khÃ­, co giÃ£n cá»±c tá»t.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "38cf6845-b52b-474d-a63a-1bde8dc897ec",
+                      "productName":  "T-Shirt SPANISH",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/top1.jpg",
+                      "salePrice":  9.0,
+                      "comparePrice":  0.0,
+                      "quantity":  20,
+                      "shortDescription":  "Ão thun T-Shirt SPANISH Mango",
+                      "productDescription":  "Ão thun T-Shirt SPANISH Mango cháº¥t liá»u cotton má»m máº¡i thoáº£i mÃ¡i.",
+                      "productType":  "simple",
+                      "ratingAverage":  4.0,
+                      "reviewCount":  3,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Beige",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "8e111039-d29e-4597-a97d-8d588a080979",
+                      "productName":  "Stylish Blouse",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/z7888710132105_a4427b5a67d19b57addc1da878907bb5.jpg",
+                      "salePrice":  39.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão blouse ná»¯ Mango thá»i trang thanh lá»ch",
+                      "productDescription":  "Ão blouse Mango dÃ¡ng Ã´m thanh lá»ch thÃ­ch há»£p cho mÃ´i trÆ°á»ng cÃ´ng sá».",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "XS",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Beige"
+                                 ]
+                  },
+                  {
+                      "id":  "6c5dbdd4-d029-44c2-b1bf-cb382e24c2b4",
+                      "productName":  "Cozy Knitwear",
+                      "brandName":  "s.Oliver",
+                      "imageUrl":  "/images/z7888714530900_1a586e868ae3ca7b027c8a45b41c0d1b.jpg",
+                      "salePrice":  69.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão len cardigan s.Oliver áº¥m Ã¡p",
+                      "productDescription":  "Ão len cardigan dá»t kim s.Oliver má»m máº¡i, giá»¯ nhiá»t tá»t cho mÃ¹a ÄÃ´ng láº¡nh.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "Beige"
+                                 ]
+                  },
+                  {
+                      "id":  "44227a5d-74bd-4021-874a-e47d250f3fa9",
+                      "productName":  "Casual Suit",
+                      "brandName":  "Boutique Moschino",
+                      "imageUrl":  "/images/z7888714623412_9757291a319e139f66e190e235c71734.jpg",
+                      "salePrice":  199.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Bá» suit casual Moschino thanh lá»ch",
+                      "productDescription":  "Bá» suit casual Boutique Moschino phom dÃ¡ng hiá»n Äáº¡i sang trá»ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "bdbf8e85-b9c9-40b6-84e7-91b83c631375",
+                      "productName":  "Knit Pullover",
+                      "brandName":  "Dorothy Perkins",
+                      "imageUrl":  "/images/z7889472051071_732f5bad4ebafe1b181a790c05127cd2.jpg",
+                      "salePrice":  49.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão len cá» trÃ²n Dorothy Perkins nháº¹ nhÃ ng",
+                      "productDescription":  "Ão len cá» trÃ²n dá»t kim Dorothy Perkins má»ng nháº¹, giá»¯ áº¥m vá»«a pháº£i.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "Blue"
+                                 ]
+                  },
+                  {
+                      "id":  "ee27c65f-5f9a-4d85-831b-1f12d9e871e2",
+                      "productName":  "Summer Crop Top",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/z7889472114938_990a1e9bb7b8741d00593e620a50ab96.jpg",
+                      "salePrice":  19.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão thun crop top Mango mÃ¡t máº»",
+                      "productDescription":  "Ão thun crop top Mango nÄng Äá»ng tráº» trung cháº¥t liá»u cotton mÃ¡t máº».",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "XS",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "d586c7ac-a4ac-4d76-b4e6-cdb179917d27",
+                      "productName":  "Luxury Handbag",
+                      "brandName":  "GUCCI",
+                      "imageUrl":  "/images/z7896061153845_9b96b466a48f9b69b37bef5bba366cd6.jpg",
+                      "salePrice":  1200.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "TÃºi xÃ¡ch da GUCCI sang trá»ng quÃ½ phÃ¡i",
+                      "productDescription":  "TÃºi xÃ¡ch da cao cáº¥p tá»« thÆ°Æ¡ng hiá»u xa xá» GUCCI, thiáº¿t káº¿ Äáº³ng cáº¥p thÆ°á»£ng lÆ°u.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "One Size"
+                                ],
+                      "colors":  [
+                                     "Beige",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "640928d4-a72c-46ac-b24a-7cd7b7e88ccf",
+                      "productName":  "Designer Shirt",
+                      "brandName":  "GUCCI",
+                      "imageUrl":  "/images/z7896061153897_a1affd7cafd0e1981adaca17c1a00f05.jpg",
+                      "salePrice":  450.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão sÆ¡ mi Gucci há»a tiáº¿t Äá»c ÄÃ¡o",
+                      "productDescription":  "Ão sÆ¡ mi lá»¥a Gucci in há»a tiáº¿t Äáº·c trÆ°ng ná»i báº­t vÃ  cÃ¡ tÃ­nh thá»i thÆ°á»£ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "fcefad59-de18-4fc9-9712-8511b462619c",
+                      "productName":  "Spring Jacket",
+                      "brandName":  "Jack \u0026 Jones",
+                      "imageUrl":  "/images/z7896061215982_3e3ff4b587a384f8f26741ae8971bdd5.jpg",
+                      "salePrice":  89.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão khoÃ¡c nháº¹ Jack \u0026 Jones cho mÃ¹a xuÃ¢n",
+                      "productDescription":  "Ão khoÃ¡c nháº¹ Jack \u0026 Jones phong cÃ¡ch tráº» trung nÄng Äá»ng cho ngÃ y xuÃ¢n mÃ¡t máº».",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Blue",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "a5be74b1-649c-4d43-8955-406b2fe45ea8",
+                      "productName":  "Cozy Sweater",
+                      "brandName":  "Blend",
+                      "imageUrl":  "/images/z7896061244018_33d1f0a4cc39f828e69a0ff3725f7383.jpg",
+                      "salePrice":  55.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão ná» Blend áº¥m Ã¡p giá»¯ nhiá»t tá»t",
+                      "productDescription":  "Ão ná» dÃ i tay chui Äáº§u hiá»u Blend cháº¥t liá»u cotton ná» bÃ´ng siÃªu áº¥m Ã¡p.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "Blue"
+                                 ]
+                  },
+                  {
+                      "id":  "2e0911ac-da41-449f-ad9d-41f647327f54",
+                      "productName":  "Winter Parka",
+                      "brandName":  "Champion",
+                      "imageUrl":  "/images/z7896061272915_47399beb55c4afe59a7ae310a066eefe.jpg",
+                      "salePrice":  150.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão phao mÃ¹a ÄÃ´ng Champion dÃ y áº¥m",
+                      "productDescription":  "Ão khoÃ¡c phao dÃ y chá»ng giÃ³ rÃ©t hiá»u Champion phÃ¹ há»£p du lá»ch trÆ°á»£t tuyáº¿t.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "16bdbf35-2ead-45b2-b5d9-1b2b18e231f5",
+                      "productName":  "Blue Casual Collar Long Sleeve",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/blue_casual_collar.webp",
+                      "salePrice":  45.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão sÆ¡ mi dÃ i tay cá» báº» phong cÃ¡ch Casual tráº» trung, nÄng Äá»ng.",
+                      "productDescription":  "Ão sÆ¡ mi dÃ i tay Mango cháº¥t liá»u váº£i dá»t cao cáº¥p, má»m máº¡i vÃ  thoáº£i mÃ¡i.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Blue"
+                                 ]
+                  },
+                  {
+                      "id":  "394fa389-8bc0-41e9-a214-0648e3669fa2",
+                      "productName":  "Casual Knitwear",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/586453182770123508.webp",
+                      "salePrice":  39.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão len dá»t kim má»ng nháº¹",
+                      "productDescription":  "Ão len dá»t kim cháº¥t liá»u cotton há»n há»£p, má»ng nháº¹ phÃ¹ há»£p cho mÃ¹a thu.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Beige",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "6efabbbc-703c-434c-8f31-7e76f21d26c4",
+                      "productName":  "Vibrant Summer T-Shirt",
+                      "brandName":  "adidas",
+                      "imageUrl":  "/images/7459155630699928.webp",
+                      "salePrice":  29.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão thun thá» thao nÄng Äá»ng",
+                      "productDescription":  "Ão thun thá» thao adidas cháº¥t liá»u thoÃ¡ng khÃ­, co giÃ£n cá»±c tá»t.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "612e9f40-383a-495c-b82a-f58f5863188d",
+                      "productName":  "Chic Woolen Sweater",
+                      "brandName":  "Dorothy Perkins",
+                      "imageUrl":  "/images/28640147625880471.webp",
+                      "salePrice":  79.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão len áº¥m Ã¡p thá»i trang",
+                      "productDescription":  "Ão len áº¥m Ã¡p dÃ y dáº·n tá»« thÆ°Æ¡ng hiá»u Dorothy Perkins phong cÃ¡ch nháº¹ nhÃ ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "15204165-1a14-4994-b6d7-989d201d6c38",
+                      "productName":  "Urban Streetwear Pants",
+                      "brandName":  "Zara",
+                      "imageUrl":  "/images/pic_115967759149831838.webp",
+                      "salePrice":  59.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Quáº§n street style nÄng Äá»ng cÃ¡ tÃ­nh",
+                      "productDescription":  "Quáº§n phong cÃ¡ch Urban Streetwear rá»ng rÃ£i, thoáº£i mÃ¡i, phÃ¹ há»£p cho Äi chÆ¡i vÃ  dáº¡o phá».",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Black",
+                                     "Green"
+                                 ]
+                  },
+                  {
+                      "id":  "5a17b786-530f-460c-88a3-de84da9613a3",
+                      "productName":  "Chic Woolen Vest",
+                      "brandName":  "Dorothy Perkins",
+                      "imageUrl":  "/images/pic_28640147625880471.webp",
+                      "salePrice":  49.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão gile len áº¥m Ã¡p phong cÃ¡ch HÃ n Quá»c",
+                      "productDescription":  "Ão gile len dá»t kim má»ng nháº¹ phong cÃ¡ch HÃ n Quá»c thanh lá»ch cho mÃ¹a thu ÄÃ´ng.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Gray",
+                                     "White"
+                                 ]
+                  },
+                  {
+                      "id":  "4ea53c78-06a3-4d5f-bbc1-dfb47a0b22ca",
+                      "productName":  "Modern Casual Shorts",
+                      "brandName":  "Mango",
+                      "imageUrl":  "/images/pic_44262008833308880.webp",
+                      "salePrice":  35.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Quáº§n shorts kaki thoáº£i mÃ¡i",
+                      "productDescription":  "Quáº§n ÄÃ¹i kaki phom dÃ¡ng tráº» trung, nÄng Äá»ng, dá»\u0085 dÃ ng phá»i há»£p vá»i nhiá»u trang phá»¥c.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Navy",
+                                     "Khaki"
+                                 ]
+                  },
+                  {
+                      "id":  "c030859c-368b-443a-87f3-684ac0d33e8e",
+                      "productName":  "Autumn Windbreaker Jacket",
+                      "brandName":  "Jack \u0026 Jones",
+                      "imageUrl":  "/images/pic_61783826134666269.webp",
+                      "salePrice":  85.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão khoÃ¡c giÃ³ phong cÃ¡ch thá» thao",
+                      "productDescription":  "Ão giÃ³ hai lá»p cáº£n giÃ³ vÃ  chá»ng nÆ°á»c nháº¹, thiáº¿t káº¿ thá» thao hiá»n Äáº¡i.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "XL",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Red",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "e74755f2-390f-463e-97e9-e073fb4710f0",
+                      "productName":  "Comfy Cotton Socks",
+                      "brandName":  "adidas",
+                      "imageUrl":  "/images/pic_70509550411451217.webp",
+                      "salePrice":  10.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Táº¥t cotton cá» cao Ãªm Ã¡i",
+                      "productDescription":  "Set vá» cotton dá»t kim cao cáº¥p, co giÃ£n tá»t, thoÃ¡ng khÃ­ vÃ  tháº¥m hÃºt má» hÃ´i tá»i Æ°u.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "One Size"
+                                ],
+                      "colors":  [
+                                     "White",
+                                     "Black"
+                                 ]
+                  },
+                  {
+                      "id":  "f07d7549-7fba-43f1-9b45-73e697c97b23",
+                      "productName":  "Active Training T-Shirt",
+                      "brandName":  "adidas",
+                      "imageUrl":  "/images/pic_7459155630699928.webp",
+                      "salePrice":  29.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "Ão phÃ´ng thá» thao thoÃ¡ng mÃ¡t",
+                      "productDescription":  "Ão phÃ´ng thá» thao thun mÃ¡t co giÃ£n, thÃ­ch há»£p cho viá»c cháº¡y bá» hay táº­p gym.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "S",
+                                    "L",
+                                    "M"
+                                ],
+                      "colors":  [
+                                     "Blue",
+                                     "Grey"
+                                 ]
+                  },
+                  {
+                      "id":  "e077f4e8-a122-4779-9c20-b3a2c0a18666",
+                      "productName":  "Retro Unisex Sunglasses",
+                      "brandName":  "Ray-Ban",
+                      "imageUrl":  "/images/pic_7740630606133834.webp",
+                      "salePrice":  180.0,
+                      "comparePrice":  0.0,
+                      "quantity":  50,
+                      "shortDescription":  "KÃ­nh mÃ¡t thá»i trang cá» Äiá»n",
+                      "productDescription":  "KÃ­nh mÃ¡t chá»ng tia UV400, gá»ng kim loáº¡i Retro cá» Äiá»n phÃ¹ há»£p cho cáº£ nam vÃ  ná»¯.",
+                      "productType":  "simple",
+                      "ratingAverage":  5.0,
+                      "reviewCount":  0,
+                      "sizes":  [
+                                    "One Size"
+                                ],
+                      "colors":  [
+                                     "Gold",
+                                     "Black"
+                                 ]
+                  }
+              ],
+    "Count":  46
+}

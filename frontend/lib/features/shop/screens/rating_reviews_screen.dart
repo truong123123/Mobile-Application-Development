@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:le_nhat_truong/features/shop/models/rating_summary.dart';
 import 'package:le_nhat_truong/features/auth/services/auth_service.dart';
 import 'package:le_nhat_truong/features/shop/services/product_service.dart';
+import 'package:le_nhat_truong/features/auth/screens/login_screen.dart';
 
 class RatingReviewsScreen extends StatefulWidget {
   final String productName;
@@ -24,7 +25,6 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
   RatingSummary? _ratingSummary;
   bool _isLoadingSummary = true;
   List<Map<String, dynamic>> _serverReviews = [];
-  bool _isLoadingReviews = true;
   int? _currentUserId;
   Map<String, dynamic>? _currentUserReview;
   bool _hasCurrentUserReview = false;
@@ -105,7 +105,6 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
     if (mounted) {
       setState(() {
         _serverReviews = reviews;
-        _isLoadingReviews = false;
       });
       _updateCurrentUserReview(reviews);
     }
@@ -402,6 +401,51 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
             bottom: 24 * scale,
             child: FloatingActionButton.extended(
               onPressed: () {
+                if (_currentUserId == null) {
+                  showDialog(
+                    context: context,
+                    builder: (dialogCtx) => AlertDialog(
+                      title: Text(
+                        'Yêu cầu đăng nhập',
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+                      ),
+                      content: Text(
+                        'Vui lòng đăng nhập để thực hiện đánh giá sản phẩm.',
+                        style: GoogleFonts.inter(),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(dialogCtx),
+                          child: Text(
+                            'Hủy',
+                            style: GoogleFonts.inter(color: Colors.grey),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(dialogCtx);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const LoginScreen(),
+                              ),
+                            ).then((_) {
+                              _loadCurrentUserAndReviews();
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFDB3022),
+                          ),
+                          child: Text(
+                            'Đăng nhập',
+                            style: GoogleFonts.inter(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                  return;
+                }
                 if (_hasCurrentUserReview) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -550,7 +594,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
             borderRadius: BorderRadius.circular(8 * scale),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.04),
+                color: Colors.black.withValues(alpha: 0.04),
                 blurRadius: 8 * scale,
                 offset: Offset(0, 4 * scale),
               ),
@@ -685,7 +729,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
               border: Border.all(color: Colors.white, width: 2),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
+                  color: Colors.black.withValues(alpha: 0.06),
                   blurRadius: 4 * scale,
                   offset: Offset(0, 2 * scale),
                 ),
@@ -713,7 +757,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
 
   Widget _buildInitialsAvatar(Map<String, dynamic> review, double scale) {
     return Container(
-      color: const Color(0xFFDB3022).withOpacity(0.15),
+      color: const Color(0xFFDB3022).withValues(alpha: 0.15),
       child: Center(
         child: Text(
           review['avatar'] ?? 'U',
@@ -810,7 +854,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                           borderRadius: BorderRadius.circular(8 * scale),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.06),
+                              color: Colors.black.withValues(alpha: 0.06),
                               blurRadius: 12 * scale,
                               offset: Offset(0, 4 * scale),
                             ),
@@ -829,7 +873,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: Colors.black.withValues(alpha: 0.1),
                                         blurRadius: 4 * scale,
                                         offset: Offset(0, 2 * scale),
                                       ),
@@ -843,7 +887,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                       fit: BoxFit.cover,
                                       errorBuilder: (_, __, ___) => Container(
                                         color: const Color(0xFFDB3022)
-                                            .withOpacity(0.15),
+                                            .withValues(alpha: 0.15),
                                         child: Center(
                                           child: Text(
                                             'U',
@@ -1082,7 +1126,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                   backgroundColor: const Color(0xFFDB3022),
                                   elevation: 4,
                                   shadowColor:
-                                      const Color(0xFFDB3022).withOpacity(0.4),
+                                      const Color(0xFFDB3022).withValues(alpha: 0.4),
                                   shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.circular(24 * scale),
@@ -1267,7 +1311,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                           borderRadius: BorderRadius.circular(4 * scale),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
+                              color: Colors.black.withValues(alpha: 0.04),
                               blurRadius: 8 * scale,
                               offset: Offset(0, 4 * scale),
                             ),
@@ -1376,7 +1420,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                       BorderRadius.circular(8 * scale),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.04),
+                                      color: Colors.black.withValues(alpha: 0.04),
                                       blurRadius: 4 * scale,
                                       offset: Offset(0, 2 * scale),
                                     ),
@@ -1449,7 +1493,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                             ),
                             elevation: 4,
                             shadowColor:
-                                const Color(0xFFDB3022).withOpacity(0.4),
+                                const Color(0xFFDB3022).withValues(alpha: 0.4),
                           ),
                           child: Text(
                             existingReview != null

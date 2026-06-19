@@ -15,6 +15,7 @@ public class UserDTO {
     private String name;
     private String email;
     private List<String> roles;
+    private String avatarUrl;
     private String dateOfBirth;
     private Boolean salesNotification;
     private Boolean newArrivalsNotification;

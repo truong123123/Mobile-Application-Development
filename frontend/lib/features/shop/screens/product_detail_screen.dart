@@ -21,7 +21,6 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   String _selectedSize = 'Size';
   String _selectedColor = 'Color';
-  bool _isFavorited = false;
   List<String> _sizes = ['XS', 'S', 'M', 'L', 'XL'];
   List<String> _colors = ['Black', 'White', 'Red', 'Blue', 'Beige'];
 
@@ -74,8 +73,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final scale = (MediaQuery.of(context).size.width / 375).clamp(0.5, 1.5);
-    final isNew =
-        widget.product.tags.any((t) => t.tagName.toUpperCase() == 'NEW');
     final isOnSale = widget.product.comparePrice != null &&
         widget.product.comparePrice! > widget.product.salePrice;
 
@@ -275,7 +272,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.05),
+                                        color: Colors.black.withValues(alpha: 0.05),
                                         blurRadius: 4 * scale,
                                         offset: Offset(0, 4 * scale),
                                       ),
@@ -547,7 +544,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
+                    color: Colors.black.withValues(alpha: 0.04),
                     blurRadius: 10 * scale,
                     offset: Offset(0, -4 * scale),
                   ),
@@ -612,7 +609,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           elevation: 4,
                           shadowColor:
-                              const Color(0xFFD32626).withOpacity(0.25),
+                              const Color(0xFFD32626).withValues(alpha: 0.25),
                         ),
                         child: Text(
                           'ADD TO FAVORITES',
@@ -972,8 +969,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               listen: false);
                           favProvider.addFavorite(widget.product, size, color);
                           setState(() {
-                            if (selectedSize.isNotEmpty)
+                            if (selectedSize.isNotEmpty) {
                               _selectedSize = selectedSize;
+                            }
                           });
                           Navigator.pop(ctx);
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -992,7 +990,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           elevation: 4,
                           shadowColor:
-                              const Color(0xFFDB3022).withOpacity(0.35),
+                              const Color(0xFFDB3022).withValues(alpha: 0.35),
                         ),
                         child: Text(
                           'ADD TO FAVORITES',

@@ -356,7 +356,7 @@ class _AddShippingAddressScreenState extends State<AddShippingAddressScreen> {
         borderRadius: BorderRadius.circular(4 * scale),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.01),
+            color: Colors.black.withValues(alpha: 0.01),
             blurRadius: 4 * scale,
             offset: Offset(0, 2 * scale),
           ),

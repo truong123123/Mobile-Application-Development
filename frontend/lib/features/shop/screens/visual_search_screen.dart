@@ -84,7 +84,7 @@ class _VisualSearchScreenState extends State<VisualSearchScreen>
             'assets/images/visual_search_bg.png',
             fit: BoxFit.cover,
             alignment: Alignment.topCenter,
-            color: Colors.black.withOpacity(0.32),
+            color: Colors.black.withValues(alpha: 0.32),
             colorBlendMode: BlendMode.darken,
           ),
 

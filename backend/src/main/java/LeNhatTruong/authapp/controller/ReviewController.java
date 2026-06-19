@@ -51,4 +51,15 @@ public class ReviewController {
         Review savedReview = reviewService.createReview(productId, userDetails.getUser(), reviewEntity);
         return ResponseEntity.ok(reviewMapper.toDTO(savedReview));
     }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<ReviewDTO>> getMyReviews(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).build();
+        }
+        List<ReviewDTO> reviews = reviewService.getReviewsForUser(userDetails.getUser()).stream()
+                .map(reviewMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reviews);
+    }
 }

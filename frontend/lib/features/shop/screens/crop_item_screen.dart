@@ -191,7 +191,7 @@ class _CropItemScreenState extends State<CropItemScreen>
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFFDB3022).withOpacity(0.4),
+                            color: const Color(0xFFDB3022).withValues(alpha: 0.4),
                             blurRadius: 16,
                             spreadRadius: 2,
                           ),
@@ -250,7 +250,7 @@ class _CropOverlayPainter extends CustomPainter {
       cropBottom * size.height,
     );
 
-    final overlayPaint = Paint()..color = Colors.black.withOpacity(0.55);
+    final overlayPaint = Paint()..color = Colors.black.withValues(alpha: 0.55);
     canvas.drawRect(Rect.fromLTRB(0, 0, size.width, rect.top), overlayPaint);
     canvas.drawRect(Rect.fromLTRB(0, rect.top, rect.left, rect.bottom), overlayPaint);
     canvas.drawRect(Rect.fromLTRB(rect.right, rect.top, size.width, rect.bottom), overlayPaint);
@@ -273,7 +273,7 @@ class _CropOverlayPainter extends CustomPainter {
     canvas.drawLine(rect.bottomRight, rect.bottomRight + const Offset(0, -cornerLen), bracketPaint);
 
     final crossPaint = Paint()
-      ..color       = Colors.white.withOpacity(0.25)
+      ..color       = Colors.white.withValues(alpha: 0.25)
       ..strokeWidth = 0.8;
     canvas.drawLine(Offset(rect.left, rect.center.dy), Offset(rect.right, rect.center.dy), crossPaint);
     canvas.drawLine(Offset(rect.center.dx, rect.top),  Offset(rect.center.dx, rect.bottom), crossPaint);

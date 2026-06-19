@@ -128,8 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 showCheck: _emailCtrl.text.isNotEmpty,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (v) {
-                                  if (v == null || v.isEmpty)
+                                  if (v == null || v.isEmpty) {
                                     return 'Vui lòng nhập email';
+                                  }
                                   if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
                                       .hasMatch(v.trim())) {
                                     return 'Email không hợp lệ';

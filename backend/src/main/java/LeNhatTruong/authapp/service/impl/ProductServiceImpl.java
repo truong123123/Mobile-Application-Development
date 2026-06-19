@@ -176,4 +176,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductsByCategory(UUID categoryId) {
         return productRepository.findByCategoryId(categoryId);
     }
+
+    @Override
+    public java.util.Optional<Product> getProductById(UUID id) {
+        return productRepository.findById(id);
+    }
 }

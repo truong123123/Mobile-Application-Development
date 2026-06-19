@@ -1001,24 +1001,6 @@ public class DataInitializer implements CommandLineRunner {
                                 .tags(new HashSet<>(Set.of(tagNew)))
                                 .build();
 
-                Product p45 = Product.builder()
-                                .productName("Active Training T-Shirt")
-                                .brandName("adidas")
-                                .slug("active-training-tshirt")
-                                .imageUrl("/images/pic_7459155630699928.webp")
-                                .salePrice(29.0)
-                                .comparePrice(0.0)
-                                .quantity(50)
-                                .shortDescription("Áo phông thể thao thoáng mát")
-                                .productDescription("Áo phông thể thao thun mát co giãn, thích hợp cho việc chạy bộ hay tập gym.")
-                                .productType("simple")
-                                .published(true)
-                                .ratingAverage(5.0)
-                                .reviewCount(0)
-                                .sizes(new HashSet<>(Set.of("S", "M", "L")))
-                                .colors(new HashSet<>(Set.of("Grey", "Blue")))
-                                .tags(new HashSet<>(Set.of(tagNew)))
-                                .build();
 
                 Product p46 = Product.builder()
                                 .productName("Retro Unisex Sunglasses")
@@ -1080,7 +1062,6 @@ public class DataInitializer implements CommandLineRunner {
                 p42 = productRepository.save(p42);
                 p43 = productRepository.save(p43);
                 p44 = productRepository.save(p44);
-                p45 = productRepository.save(p45);
                 p46 = productRepository.save(p46);
 
                 linkProductToCategory(p4, catNew);
@@ -1124,7 +1105,6 @@ public class DataInitializer implements CommandLineRunner {
                 linkProductToCategory(p42, catClothes, catNew);
                 linkProductToCategory(p43, catClothes, catNew);
                 linkProductToCategory(p44, catAccessories, catNew);
-                linkProductToCategory(p45, catClothes, catNew);
                 linkProductToCategory(p46, catAccessories, catNew);
                 log.info("TOPS and other product data initialized successfully.");
 

@@ -50,12 +50,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ? a.product.salePrice.compareTo(b.product.salePrice)
             : b.product.salePrice.compareTo(a.product.salePrice));
 
-        return Scaffold(
-          backgroundColor: const Color(0xFFF9F9F9),
-          body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+        return Container(
+          color: const Color(0xFFF9F9F9),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
                 // Header
                 Padding(
                   padding: EdgeInsets.fromLTRB(
@@ -116,7 +115,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               boxShadow: isSelected
                                   ? [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.10),
+                                        color: Colors.black.withValues(alpha: 0.10),
                                         blurRadius: 8,
                                         offset: const Offset(0, 2),
                                       ),
@@ -221,8 +220,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           ? _buildGridView(items, scale, favProvider)
                           : _buildListView(items, scale, favProvider),
                 ),
-              ],
-            ),
+            ],
           ),
         );
       },
@@ -302,7 +300,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           borderRadius: BorderRadius.circular(8 * scale),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -347,7 +345,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   if (isSoldOut)
                     Positioned.fill(
                       child: Container(
-                        color: Colors.white.withOpacity(0.75),
+                        color: Colors.white.withValues(alpha: 0.75),
                         alignment: Alignment.bottomCenter,
                         padding: EdgeInsets.only(bottom: 8 * scale),
                         child: Text(
@@ -525,6 +523,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 : item.selectedColor;
                             Provider.of<CartProvider>(context, listen: false)
                                 .addItem(product, size, color);
+                            favProvider.removeFavorite(product.id);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -547,7 +546,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             : [
                                 BoxShadow(
                                   color:
-                                      const Color(0xFFDB3022).withOpacity(0.35),
+                                      const Color(0xFFDB3022).withValues(alpha: 0.35),
                                   blurRadius: 8,
                                   offset: const Offset(0, 3),
                                 ),
@@ -577,7 +576,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         crossAxisCount: 2,
         crossAxisSpacing: 12 * scale,
         mainAxisSpacing: 12 * scale,
-        childAspectRatio: 0.65,
+        childAspectRatio: 0.60,
       ),
       itemCount: items.length,
       itemBuilder: (ctx, i) => _buildGridCard(items[i], scale, favProvider),
@@ -615,7 +614,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           borderRadius: BorderRadius.circular(8 * scale),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -665,7 +664,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         child: Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 8 * scale, vertical: 6 * scale),
-                          color: Colors.white.withOpacity(0.82),
+                          color: Colors.white.withValues(alpha: 0.82),
                           child: Text(
                             'Sorry, this item is currently sold out',
                             style: GoogleFonts.inter(
@@ -686,7 +685,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           width: 26 * scale,
                           height: 26 * scale,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(Icons.close,
@@ -711,6 +710,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 Provider.of<CartProvider>(context,
                                         listen: false)
                                     .addItem(product, size, color);
+                                favProvider.removeFavorite(product.id);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -733,7 +733,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 : [
                                     BoxShadow(
                                       color: const Color(0xFFDB3022)
-                                          .withOpacity(0.4),
+                                          .withValues(alpha: 0.4),
                                       blurRadius: 8,
                                       offset: const Offset(0, 3),
                                     ),

@@ -16,7 +16,7 @@ Future<String> authenticateWithPopup({
 
   final left = (web.window.screen.width - width) ~/ 2;
   final top = (web.window.screen.height - height) ~/ 3;
-  final popup = web.window.open(
+  web.window.open(
       url, 'social_auth', 'width=$width,height=$height,left=$left,top=$top');
 
   debugPrint('[SocialAuth] Popup opened, waiting for postMessage...');

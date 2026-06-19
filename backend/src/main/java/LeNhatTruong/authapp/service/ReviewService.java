@@ -10,4 +10,5 @@ public interface ReviewService {
     Map<String, Object> getRatingSummaryForProduct(UUID productId);
     List<Review> getReviewsForProduct(UUID productId);
     Review createReview(UUID productId, User user, Review review);
+    List<Review> getReviewsForUser(User user);
 }

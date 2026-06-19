@@ -37,7 +37,7 @@ class FavoriteItem {
 
 class FavoritesProvider extends ChangeNotifier {
   final List<FavoriteItem> _favorites = [];
-  static const String _prefKey = 'favorites_list';
+  String _currentUserEmail = '';
 
   List<FavoriteItem> get favorites => List.unmodifiable(_favorites);
 
@@ -49,16 +49,35 @@ class FavoritesProvider extends ChangeNotifier {
     return _favorites.any((item) => item.product.id == productId);
   }
 
+  String _getPrefKey() {
+    return _currentUserEmail.isNotEmpty
+        ? 'favorites_list_$_currentUserEmail'
+        : 'favorites_list_guest';
+  }
+
+  Future<void> setCurrentUserEmail(String? email) async {
+    final targetEmail = email ?? '';
+    if (_currentUserEmail == targetEmail) return;
+    _currentUserEmail = targetEmail;
+    await _loadFromPrefs();
+  }
+
+  void clearFavorites() {
+    _favorites.clear();
+    _currentUserEmail = '';
+    notifyListeners();
+  }
+
   Future<void> _loadFromPrefs() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final String? listStr = prefs.getString(_prefKey);
+      final String? listStr = prefs.getString(_getPrefKey());
+      _favorites.clear();
       if (listStr != null) {
         final List<dynamic> decoded = json.decode(listStr);
-        _favorites.clear();
         _favorites.addAll(decoded.map((x) => FavoriteItem.fromJson(x)).toList());
-        notifyListeners();
       }
+      notifyListeners();
     } catch (e) {
       debugPrint('Error loading favorites: $e');
     }
@@ -68,7 +87,7 @@ class FavoritesProvider extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       final String encoded = json.encode(_favorites.map((x) => x.toJson()).toList());
-      await prefs.setString(_prefKey, encoded);
+      await prefs.setString(_getPrefKey(), encoded);
     } catch (e) {
       debugPrint('Error saving favorites: $e');
     }

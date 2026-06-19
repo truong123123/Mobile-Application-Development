@@ -27,6 +27,9 @@ public class ReviewMapper {
                 .photos(review.getPhotos() != null ? new ArrayList<>(review.getPhotos()) : new ArrayList<>())
                 .helpful(review.isHelpful())
                 .hasPhoto(review.hasPhoto())
+                .productId(review.getProduct() != null ? review.getProduct().getId().toString() : null)
+                .productName(review.getProduct() != null ? review.getProduct().getProductName() : null)
+                .productImageUrl(review.getProduct() != null ? review.getProduct().getImageUrl() : null)
                 .build();
     }
 

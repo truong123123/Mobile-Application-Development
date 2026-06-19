@@ -95,7 +95,7 @@ class _BagScreenState extends State<BagScreen> {
                     borderRadius: BorderRadius.circular(8 * scale),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 4 * scale,
                         offset: Offset(0, 2 * scale),
                       ),
@@ -188,7 +188,7 @@ class _BagScreenState extends State<BagScreen> {
                         borderRadius: BorderRadius.circular(8 * scale),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             blurRadius: 8 * scale,
                             offset: Offset(0, 2 * scale),
                           ),
@@ -212,7 +212,7 @@ class _BagScreenState extends State<BagScreen> {
                                           fit: BoxFit.cover,
                                         ),
                                         Container(
-                                          color: Colors.black.withOpacity(0.4),
+                                          color: Colors.black.withValues(alpha: 0.4),
                                         ),
                                         Center(
                                           child: Text(
@@ -358,12 +358,11 @@ class _BagScreenState extends State<BagScreen> {
       _promoController.clear();
     }
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return Container(
+      color: const Color(0xFFF9F9F9),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
             // Search Icon
             Padding(
               padding: EdgeInsets.only(right: 12 * scale),
@@ -415,7 +414,7 @@ class _BagScreenState extends State<BagScreen> {
                             borderRadius: BorderRadius.circular(8 * scale),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.04),
+                                color: Colors.black.withValues(alpha: 0.04),
                                 blurRadius: 8 * scale,
                                 offset: Offset(0, 2 * scale),
                               ),
@@ -709,7 +708,7 @@ class _BagScreenState extends State<BagScreen> {
                   color: const Color(0xFFF9F9F9),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.03),
+                      color: Colors.black.withValues(alpha: 0.03),
                       blurRadius: 10 * scale,
                       offset: Offset(0, -5 * scale),
                     ),
@@ -729,7 +728,7 @@ class _BagScreenState extends State<BagScreen> {
                           borderRadius: BorderRadius.circular(8 * scale),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
+                              color: Colors.black.withValues(alpha: 0.04),
                               blurRadius: 4 * scale,
                               offset: Offset(0, 2 * scale),
                             ),
@@ -814,7 +813,7 @@ class _BagScreenState extends State<BagScreen> {
                           ),
                           elevation: 4,
                           shadowColor:
-                              const Color(0xFFDB3022).withOpacity(0.35),
+                              const Color(0xFFDB3022).withValues(alpha: 0.35),
                         ),
                         child: Text(
                           'CHECK OUT',
@@ -830,8 +829,7 @@ class _BagScreenState extends State<BagScreen> {
                   ],
                 ),
               ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -880,7 +878,7 @@ class _BagScreenState extends State<BagScreen> {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 4 * scale,
               offset: Offset(0, 2 * scale),
             ),

@@ -231,10 +231,60 @@ class ProductService {
         }),
       );
 
+      print('>>> createReview statusCode: ${response.statusCode}');
+      print('>>> createReview body: ${response.body}');
+
       return response.statusCode == 200;
     } catch (e) {
       print('>>> Error creating review: $e');
       return false;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getMyReviews() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString(AppConstants.accessTokenKey);
+      if (token == null) {
+        throw Exception('Not authenticated');
+      }
+
+      final response = await http.get(
+        Uri.parse('${AppConstants.baseUrl}/api/reviews/my'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
+        return List<Map<String, dynamic>>.from(body);
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print('>>> Error getting my reviews: $e');
+      return [];
+    }
+  }
+
+  Future<Product?> getProductById(String id) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${AppConstants.baseUrl}/api/products/$id'),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        final body = jsonDecode(utf8.decode(response.bodyBytes));
+        return Product.fromJson(body);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('>>> Error getting product by id: $e');
+      return null;
     }
   }
 }

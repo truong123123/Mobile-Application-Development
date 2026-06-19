@@ -21,6 +21,7 @@ public class UserMapper {
                 .roles(user.getRoles() != null
                         ? user.getRoles().stream().map(Role::getName).collect(Collectors.toList())
                         : Collections.emptyList())
+                .avatarUrl(user.getAvatarUrl())
                 .dateOfBirth(user.getDateOfBirth())
                 .salesNotification(user.getSalesNotification())
                 .newArrivalsNotification(user.getNewArrivalsNotification())

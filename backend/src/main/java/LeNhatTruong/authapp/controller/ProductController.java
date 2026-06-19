@@ -83,4 +83,12 @@ public class ProductController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(products);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable UUID id) {
+        return productService.getProductById(id)
+                .map(productMapper::toDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

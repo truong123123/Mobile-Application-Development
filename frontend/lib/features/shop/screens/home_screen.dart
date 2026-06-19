@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:le_nhat_truong/features/auth/providers/auth_provider.dart';
 import 'package:le_nhat_truong/core/theme/app_theme.dart';
 import 'package:le_nhat_truong/features/auth/screens/login_screen.dart';
+import 'package:le_nhat_truong/features/cart/providers/cart_provider.dart';
+import 'package:le_nhat_truong/features/favorites/providers/favorites_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -136,6 +138,8 @@ class _HomeScreenState extends State<HomeScreen>
     );
 
     if (confirmed == true && mounted) {
+      context.read<CartProvider>().clearCart();
+      context.read<FavoritesProvider>().clearFavorites();
       await context.read<AuthProvider>().logout();
       if (!mounted) return;
       Navigator.pushReplacement(

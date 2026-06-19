@@ -32,7 +32,16 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => AuthService()),
         ChangeNotifierProvider(
             create: (ctx) => AuthProvider(authService: ctx.read())),
-        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+        ChangeNotifierProxyProvider<AuthProvider, FavoritesProvider>(
+          create: (_) => FavoritesProvider(),
+          update: (_, authProvider, favoritesProvider) {
+            final email = authProvider.user?.email;
+            if (favoritesProvider != null) {
+              favoritesProvider.setCurrentUserEmail(email);
+            }
+            return favoritesProvider ?? FavoritesProvider();
+          },
+        ),
         ChangeNotifierProvider(create: (_) => CartProvider()),
       ],
       child: MaterialApp(

@@ -94,4 +94,9 @@ public class ReviewServiceImpl implements ReviewService {
         review.setUpdatedAt(java.time.OffsetDateTime.now());
         return reviewRepository.save(review);
     }
+
+    @Override
+    public List<Review> getReviewsForUser(User user) {
+        return reviewRepository.findByUserId(user.getId());
+    }
 }

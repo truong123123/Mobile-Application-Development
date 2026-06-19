@@ -151,8 +151,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: _emailCtrl,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (v) {
-                                  if (v == null || v.isEmpty)
+                                  if (v == null || v.isEmpty) {
                                     return 'Vui lòng nhập email';
+                                  }
                                   if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
                                       .hasMatch(v.trim())) {
                                     return 'Email không hợp lệ';

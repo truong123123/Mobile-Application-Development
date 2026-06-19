@@ -13,4 +13,5 @@ public interface ProductService {
     Product updateProduct(UUID id, Product input);
     void deleteProduct(UUID id);
     List<Product> getProductsByCategory(UUID categoryId);
+    java.util.Optional<Product> getProductById(UUID id);
 }

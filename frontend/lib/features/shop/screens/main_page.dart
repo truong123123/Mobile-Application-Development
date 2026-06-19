@@ -14,6 +14,7 @@ import 'package:le_nhat_truong/features/shop/screens/product_detail_screen.dart'
 import 'package:le_nhat_truong/features/favorites/screens/favorites_screen.dart';
 import 'package:le_nhat_truong/features/favorites/providers/favorites_provider.dart';
 import 'package:le_nhat_truong/features/cart/screens/bag_screen.dart';
+import 'package:le_nhat_truong/features/cart/providers/cart_provider.dart';
 import 'package:le_nhat_truong/features/orders/screens/my_orders_screen.dart';
 import 'package:le_nhat_truong/features/orders/screens/order_details_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/settings_screen.dart';
@@ -22,6 +23,7 @@ import 'package:le_nhat_truong/features/shop/screens/admin_product_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/collections_screen.dart';
 import 'package:le_nhat_truong/features/auth/screens/shipping_addresses_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/search_screen.dart';
+import 'package:le_nhat_truong/features/shop/screens/my_reviews_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -39,8 +41,8 @@ class _MainPageState extends State<MainPage> {
   List<Product> _saleProducts = [];
   List<Product> _newProducts = [];
   bool _isLoading = true;
-  List<Product> _topsProducts = [];
-  bool _isTopsLoading = false;
+  final List<Product> _topsProducts = [];
+  final bool _isTopsLoading = false;
   bool _isGridView = true;
   String _selectedSort = 'Price: lowest to high';
 
@@ -362,41 +364,6 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildPlaceholderTab(
-      {required double scale, required String title, required IconData icon}) {
-    return Container(
-      color: const Color(0xFFF9F9F9),
-      width: double.infinity,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon,
-                size: 64 * scale,
-                color: const Color(0xFFDB3022).withOpacity(0.5)),
-            SizedBox(height: 16 * scale),
-            Text(
-              title,
-              style: GoogleFonts.outfit(
-                fontSize: 24 * scale,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF222222),
-              ),
-            ),
-            SizedBox(height: 8 * scale),
-            Text(
-              'Tính năng đang được cập nhật',
-              style: GoogleFonts.inter(
-                fontSize: 14 * scale,
-                color: const Color(0xFF9B9B9B),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildCategoriesTab({required double scale}) {
     if (_currentShopView == 'category_products' && _selectedCategory != null) {
       return _buildCategoryProductsView(scale: scale);
@@ -585,7 +552,7 @@ class _MainPageState extends State<MainPage> {
         borderRadius: BorderRadius.circular(8 * scale),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFDB3022).withOpacity(0.12),
+            color: const Color(0xFFDB3022).withValues(alpha: 0.12),
             blurRadius: 8 * scale,
             offset: Offset(0, 4 * scale),
           ),
@@ -629,7 +596,7 @@ class _MainPageState extends State<MainPage> {
           borderRadius: BorderRadius.circular(8 * scale),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 6 * scale,
               offset: Offset(0, 2 * scale),
             ),
@@ -1032,7 +999,13 @@ class _MainPageState extends State<MainPage> {
                 IconButton(
                   icon: Icon(Icons.search,
                       color: const Color(0xFF222222), size: 24 * scale),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const SearchScreen()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -1210,24 +1183,6 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Future<void> _loadTopsProducts() async {
-    setState(() {
-      _isTopsLoading = true;
-    });
-    try {
-      final products = await _productService.getProductsByTag('TOPS');
-      setState(() {
-        _topsProducts = products;
-        _isTopsLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isTopsLoading = false;
-      });
-      print('>>> Error loading tops products: $e');
-    }
-  }
-
   Widget _buildTopsView({required double scale}) {
     final List<String> tags = ['T-shirts', 'Crop tops', 'Sleeveless', 'Shirts'];
 
@@ -1273,7 +1228,13 @@ class _MainPageState extends State<MainPage> {
                 IconButton(
                   icon: Icon(Icons.search,
                       color: const Color(0xFF222222), size: 24 * scale),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const SearchScreen()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -1567,7 +1528,7 @@ class _MainPageState extends State<MainPage> {
                 borderRadius: BorderRadius.circular(8 * scale),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
+                    color: Colors.black.withValues(alpha: 0.04),
                     blurRadius: 6 * scale,
                     offset: Offset(0, 2 * scale),
                   ),
@@ -1772,6 +1733,29 @@ class _ProfileTabState extends State<_ProfileTab> {
     }
   }
 
+  Widget _buildInitialsAvatar(String initials, double scale) {
+    return Container(
+      width: 64 * scale,
+      height: 64 * scale,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          colors: [Color(0xFFDB3022), Color(0xFFFF9F43)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Text(
+        initials,
+        style: GoogleFonts.outfit(
+          fontSize: 20 * scale,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1823,14 +1807,35 @@ class _ProfileTabState extends State<_ProfileTab> {
       );
     }
 
+    if (_currentView == 'my_reviews') {
+      return MyReviewsScreen(
+        onBack: () {
+          setState(() {
+            _currentView = 'main';
+          });
+          _fetchStats();
+        },
+        scale: widget.scale,
+      );
+    }
+
     final auth = context.watch<AuthProvider>();
     final user = auth.user;
 
     final String displayName = user?.name ?? 'Matilda Brown';
     final String displayEmail = user?.email ?? 'matildabrown@mail.com';
+    final String initials = displayName.isNotEmpty
+        ? displayName
+            .split(' ')
+            .map((e) => e.isNotEmpty ? e[0].toUpperCase() : '')
+            .take(2)
+            .join()
+        : '?';
 
-    return SingleChildScrollView(
-      child: Column(
+    return Container(
+      color: const Color(0xFFF9F9F9),
+      child: SingleChildScrollView(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 24 * widget.scale),
@@ -1874,20 +1879,27 @@ class _ProfileTabState extends State<_ProfileTab> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withValues(alpha: 0.08),
                         blurRadius: 8 * widget.scale,
                         offset: Offset(0, 4 * widget.scale),
                       ),
                     ],
                   ),
-                  child: CircleAvatar(
-                    radius: 32 * widget.scale,
-                    backgroundColor: Colors.grey[200],
-                    backgroundImage: user?.avatarUrl != null &&
-                            user!.avatarUrl!.isNotEmpty
-                        ? NetworkImage(user.avatarUrl!) as ImageProvider
-                        : const AssetImage('assets/images/jang_wonyoung.jpg'),
-                  ),
+                  child: user?.avatarUrl != null &&
+                          user!.avatarUrl!.isNotEmpty
+                      ? ClipOval(
+                          child: Image.network(
+                            user.avatarUrl!,
+                            width: 64 * widget.scale,
+                            height: 64 * widget.scale,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => _buildInitialsAvatar(
+                              initials,
+                              widget.scale,
+                            ),
+                          ),
+                        )
+                      : _buildInitialsAvatar(initials, widget.scale),
                 ),
                 SizedBox(width: 18 * widget.scale),
                 Expanded(
@@ -1964,7 +1976,11 @@ class _ProfileTabState extends State<_ProfileTab> {
                 ? 'Loading...'
                 : 'Reviews for $_reviewCount items',
             scale: widget.scale,
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                _currentView = 'my_reviews';
+              });
+            },
           ),
           if (user != null && user.roles.contains('ROLE_ADMIN'))
             _buildMenuItem(
@@ -1998,6 +2014,7 @@ class _ProfileTabState extends State<_ProfileTab> {
           SizedBox(height: 40 * widget.scale),
         ],
       ),
+    ),
     );
   }
 
@@ -2080,6 +2097,8 @@ class _ProfileTabState extends State<_ProfileTab> {
     );
 
     if (confirmed == true && context.mounted) {
+      context.read<CartProvider>().clearCart();
+      context.read<FavoritesProvider>().clearFavorites();
       await context.read<AuthProvider>().logout();
       if (!context.mounted) return;
       Navigator.pushReplacement(
@@ -2100,7 +2119,6 @@ class _BigBanner extends StatefulWidget {
   final VoidCallback? onCheckPressed;
 
   const _BigBanner({
-    super.key,
     required this.height,
     required this.scale,
     this.onCheckPressed,
@@ -2227,7 +2245,7 @@ class _BigBannerState extends State<_BigBanner> {
                     borderRadius: BorderRadius.circular(25 * widget.scale),
                   ),
                   elevation: 4,
-                  shadowColor: const Color(0xFFD32626).withOpacity(0.25),
+                  shadowColor: const Color(0xFFD32626).withValues(alpha: 0.25),
                 ),
                 child: Text(
                   'Check',

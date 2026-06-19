@@ -24,4 +24,7 @@ public class ReviewDTO {
     private List<String> photos;
     private boolean helpful;
     private boolean hasPhoto;
+    private String productId;
+    private String productName;
+    private String productImageUrl;
 }

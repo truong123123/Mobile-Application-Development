@@ -201,123 +201,147 @@ class _AdminProductScreenState extends State<AdminProductScreen> {
   @override
   Widget build(BuildContext context) {
     final double scale = widget.scale;
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-              color: const Color(0xFF222222), size: 24 * scale),
-          onPressed: widget.onBack,
-        ),
-        title: Text(
-          'Product Management',
-          style: GoogleFonts.outfit(
-            fontSize: 20 * scale,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFF222222),
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh,
-                color: const Color(0xFFDB3022), size: 24 * scale),
-            onPressed: _loadData,
-          ),
-        ],
-      ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDB3022))))
-          : Column(
+    return Container(
+      color: const Color(0xFFF9F9F9),
+      child: Column(
+        children: [
+          // Custom AppBar
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(
+                horizontal: 4 * scale, vertical: 4 * scale),
+            child: Row(
               children: [
-                // Search Box
-                Padding(
-                  padding: EdgeInsets.all(16 * scale),
-                  child: TextField(
-                    onChanged: (val) {
-                      setState(() {
-                        _searchQuery = val;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search products by name or brand...',
-                      hintStyle: GoogleFonts.inter(
-                          fontSize: 14 * scale, color: const Color(0xFF9B9B9B)),
-                      prefixIcon: Icon(Icons.search,
-                          color: const Color(0xFF9B9B9B), size: 20 * scale),
-                      fillColor: Colors.white,
-                      filled: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 12 * scale),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12 * scale),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12 * scale),
-                        borderSide: BorderSide.none,
-                      ),
+                IconButton(
+                  icon: Icon(Icons.arrow_back,
+                      color: const Color(0xFF222222), size: 24 * scale),
+                  onPressed: widget.onBack,
+                ),
+                Expanded(
+                  child: Text(
+                    'Product Management',
+                    style: GoogleFonts.outfit(
+                      fontSize: 20 * scale,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF222222),
                     ),
                   ),
                 ),
-
-                // Products count
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16 * scale),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total Products: ${_filteredProducts.length}',
-                        style: GoogleFonts.inter(
-                          fontSize: 14 * scale,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF222222),
-                        ),
-                      ),
-                      TextButton.icon(
-                        onPressed: () => _openProductForm(),
-                        icon: Icon(Icons.add,
-                            size: 18 * scale, color: const Color(0xFFDB3022)),
-                        label: Text(
-                          'Add Product',
-                          style: GoogleFonts.inter(
-                            fontSize: 14 * scale,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFFDB3022),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Product List
-                Expanded(
-                  child: _filteredProducts.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No products found.',
-                            style: GoogleFonts.inter(
-                                fontSize: 14 * scale,
-                                color: const Color(0xFF9B9B9B)),
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: _filteredProducts.length,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16 * scale, vertical: 8 * scale),
-                          itemBuilder: (context, index) {
-                            final product = _filteredProducts[index];
-                            return _buildProductCard(product, scale);
-                          },
-                        ),
+                IconButton(
+                  icon: Icon(Icons.refresh,
+                      color: const Color(0xFFDB3022), size: 24 * scale),
+                  onPressed: _loadData,
                 ),
               ],
             ),
+          ),
+          const Divider(height: 1, color: Color(0xFFE0E0E0)),
+
+          // Body
+          Expanded(
+            child: _isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFFDB3022))))
+                : Column(
+                    children: [
+                      // Search Box
+                      Padding(
+                        padding: EdgeInsets.all(16 * scale),
+                        child: TextField(
+                          onChanged: (val) {
+                            setState(() {
+                              _searchQuery = val;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Search products by name or brand...',
+                            hintStyle: GoogleFonts.inter(
+                                fontSize: 14 * scale,
+                                color: const Color(0xFF9B9B9B)),
+                            prefixIcon: Icon(Icons.search,
+                                color: const Color(0xFF9B9B9B),
+                                size: 20 * scale),
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: 12 * scale),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(12 * scale),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(12 * scale),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Products count
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16 * scale),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Products: ${_filteredProducts.length}',
+                              style: GoogleFonts.inter(
+                                fontSize: 14 * scale,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF222222),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed: () => _openProductForm(),
+                              icon: Icon(Icons.add,
+                                  size: 18 * scale,
+                                  color: const Color(0xFFDB3022)),
+                              label: Text(
+                                'Add Product',
+                                style: GoogleFonts.inter(
+                                  fontSize: 14 * scale,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFFDB3022),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Product List
+                      Expanded(
+                        child: _filteredProducts.isEmpty
+                            ? Center(
+                                child: Text(
+                                  'No products found.',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 14 * scale,
+                                      color: const Color(0xFF9B9B9B)),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: _filteredProducts.length,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16 * scale,
+                                    vertical: 8 * scale),
+                                itemBuilder: (context, index) {
+                                  final product =
+                                      _filteredProducts[index];
+                                  return _buildProductCard(product, scale);
+                                },
+                              ),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -335,7 +359,7 @@ class _AdminProductScreenState extends State<AdminProductScreen> {
         borderRadius: BorderRadius.circular(12 * scale),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8 * scale,
             offset: Offset(0, 4 * scale),
           ),
@@ -1004,7 +1028,7 @@ class _ProductFormSheetState extends State<_ProductFormSheet> {
                             borderRadius: BorderRadius.circular(24 * scale),
                           ),
                           elevation: 4,
-                          shadowColor: const Color(0xFFDB3022).withOpacity(0.3),
+                          shadowColor: const Color(0xFFDB3022).withValues(alpha: 0.3),
                         ),
                         onPressed: _submit,
                         child: Text(

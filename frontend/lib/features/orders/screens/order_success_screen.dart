@@ -88,7 +88,7 @@ class OrderSuccessScreen extends StatelessWidget {
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 28 * scale),
                         elevation: 4,
-                        shadowColor: const Color(0xFFDB3022).withOpacity(0.25),
+                        shadowColor: const Color(0xFFDB3022).withValues(alpha: 0.25),
                       ),
                       child: Text(
                         'Continue shopping',
@@ -170,7 +170,7 @@ class OrderSuccessScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24 * scale),
                       ),
                       elevation: 4,
-                      shadowColor: const Color(0xFFDB3022).withOpacity(0.35),
+                      shadowColor: const Color(0xFFDB3022).withValues(alpha: 0.35),
                     ),
                     child: Text(
                       'CONTINUE SHOPPING',
@@ -315,7 +315,7 @@ class ShoppingBagsIllustration extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4 * scale),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.06),
+                          color: Colors.black.withValues(alpha: 0.06),
                           blurRadius: 8 * scale,
                           offset: Offset(0, 4 * scale),
                         ),
@@ -362,7 +362,7 @@ class ShoppingBagsIllustration extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6 * scale),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 12 * scale,
                           offset: Offset(0, 6 * scale),
                         ),

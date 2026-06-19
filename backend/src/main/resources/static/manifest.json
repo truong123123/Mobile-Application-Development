@@ -1,6 +1,6 @@
 {
-    "name": "auth_app",
-    "short_name": "auth_app",
+    "name": "LeNhatTruong",
+    "short_name": "LeNhatTruong",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

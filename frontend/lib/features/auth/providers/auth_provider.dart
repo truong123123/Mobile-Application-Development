@@ -51,7 +51,7 @@ class AuthProvider extends ChangeNotifier {
     _setLoading(true);
     _setError(null);
     try {
-      final auth = await _authService.login(email, password);
+      await _authService.login(email, password);
       _user = await _authService.getMe();
       _status = AuthStatus.authenticated;
       _setLoading(false);

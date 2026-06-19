@@ -22,7 +22,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   String _cardNumber = '3947';
   String _cardType = 'MasterCard';
   List<Map<String, dynamic>> _userCards = [];
-  bool _loadingCards = false;
 
   @override
   void initState() {
@@ -50,9 +49,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Future<void> _loadUserCards() async {
-    setState(() {
-      _loadingCards = true;
-    });
     try {
       final cards = await AuthService().getUserCards();
       setState(() {
@@ -73,137 +69,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       });
     } catch (e) {
       print('>>> Error loading user cards: $e');
-    } finally {
-      setState(() {
-        _loadingCards = false;
-      });
     }
-  }
-
-  void _showEditAddressBottomSheet(BuildContext context, double scale) {
-    final nameController = TextEditingController(text: _shippingName);
-    final addressController = TextEditingController(text: _shippingAddress);
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFFF9F9F9),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-          ),
-          padding: EdgeInsets.only(
-            left: 20 * scale,
-            right: 20 * scale,
-            top: 10 * scale,
-            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24 * scale,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 60 * scale,
-                    height: 6 * scale,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFC4C4C4),
-                      borderRadius: BorderRadius.circular(3 * scale),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 24 * scale),
-                Text(
-                  'Edit Shipping Address',
-                  style: GoogleFonts.outfit(
-                    fontSize: 20 * scale,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xFF222222),
-                  ),
-                ),
-                SizedBox(height: 20 * scale),
-                TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Full Name',
-                    labelStyle:
-                        GoogleFonts.inter(color: const Color(0xFF9B9B9B)),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8 * scale),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8 * scale),
-                      borderSide: const BorderSide(color: Color(0xFFDB3022)),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16 * scale),
-                TextField(
-                  controller: addressController,
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    labelText: 'Address Details',
-                    labelStyle:
-                        GoogleFonts.inter(color: const Color(0xFF9B9B9B)),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8 * scale),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8 * scale),
-                      borderSide: const BorderSide(color: Color(0xFFDB3022)),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 24 * scale),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48 * scale,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (nameController.text.trim().isNotEmpty &&
-                          addressController.text.trim().isNotEmpty) {
-                        setState(() {
-                          _shippingName = nameController.text.trim();
-                          _shippingAddress = addressController.text.trim();
-                        });
-                        Navigator.pop(ctx);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFDB3022),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24 * scale),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'SAVE ADDRESS',
-                      style: GoogleFonts.inter(
-                        fontSize: 14 * scale,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
   }
 
   void _showEditPaymentBottomSheet(BuildContext context, double scale) {
@@ -301,7 +167,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.02),
+                                    color: Colors.black.withValues(alpha: 0.02),
                                     blurRadius: 4,
                                   ),
                                 ],
@@ -616,7 +482,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         borderRadius: BorderRadius.circular(8 * scale),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             blurRadius: 8 * scale,
                             offset: Offset(0, 2 * scale),
                           ),
@@ -908,7 +774,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       borderRadius: BorderRadius.circular(24 * scale),
                     ),
                     elevation: 4,
-                    shadowColor: const Color(0xFFDB3022).withOpacity(0.35),
+                    shadowColor: const Color(0xFFDB3022).withValues(alpha: 0.35),
                   ),
                   child: Text(
                     'SUBMIT ORDER',
@@ -945,7 +811,7 @@ class _CardLogo extends StatelessWidget {
           borderRadius: BorderRadius.circular(4 * scale),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -974,7 +840,7 @@ class _CardLogo extends StatelessWidget {
         borderRadius: BorderRadius.circular(4 * scale),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -1057,7 +923,7 @@ class _DeliveryCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isSelected ? 0.08 : 0.04),
+              color: Colors.black.withValues(alpha: isSelected ? 0.08 : 0.04),
               blurRadius: 8 * scale,
               offset: Offset(0, 4 * scale),
             ),

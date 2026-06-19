@@ -120,12 +120,14 @@ class AuthService {
       },
       body: jsonEncode(orderPayload),
     );
+    print('>>> createRealOrder statusCode: ${response.statusCode}');
+    print('>>> createRealOrder body: ${response.body}');
     if (response.statusCode != 200) {
       try {
         final body = jsonDecode(utf8.decode(response.bodyBytes));
-        throw Exception(body['message'] ?? 'Không thể tạo đơn hàng trên server');
+        throw Exception(body['message'] ?? 'Không thể tạo đơn hàng trên server (Status: ${response.statusCode})');
       } catch (_) {
-        throw Exception('Không thể tạo đơn hàng trên server');
+        throw Exception('Không thể tạo đơn hàng trên server (Status: ${response.statusCode}, Body: ${response.body})');
       }
     }
   }

@@ -25,6 +25,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _newArrivalsNotification = false;
   bool _deliveryStatusNotification = false;
   bool _initialized = false;
+  bool _isSavingDob = false;
+  String _originalDob = '';
 
   @override
   void initState() {
@@ -41,13 +43,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final auth = context.read<AuthProvider>();
       if (auth.user != null) {
         _nameController.text = auth.user!.name;
-        _dobController.text = auth.user!.dateOfBirth ?? '1989-12-12';
+        final dob = auth.user!.dateOfBirth ?? '1989-12-12';
+        _dobController.text = dob;
+        _originalDob = dob;
         _salesNotification = auth.user!.salesNotification;
         _newArrivalsNotification = auth.user!.newArrivalsNotification;
         _deliveryStatusNotification = auth.user!.deliveryStatusNotification;
       } else {
         _nameController.text = 'Matilda Brown';
         _dobController.text = '1989-12-12';
+        _originalDob = '1989-12-12';
         _salesNotification = true;
         _newArrivalsNotification = false;
         _deliveryStatusNotification = false;
@@ -228,7 +233,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         borderRadius: BorderRadius.circular(4 * scale),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8 * scale,
             offset: Offset(0, 2 * scale),
           ),
@@ -262,6 +267,191 @@ class _SettingsScreenState extends State<SettingsScreen> {
           filled: false,
           fillColor: Colors.transparent,
         ),
+      ),
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime(1989, 12, 12);
+    if (_dobController.text.isNotEmpty) {
+      try {
+        final parsed = DateTime.parse(_dobController.text.trim());
+        initialDate = parsed;
+      } catch (e) {
+        // use default
+      }
+    }
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFFDB3022), // Header background color
+              onPrimary: Colors.white, // Header text color
+              onSurface: Color(0xFF222222), // Body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFFDB3022), // button text color
+              ),
+            ),
+          ),
+          child: child ?? const SizedBox(),
+        );
+      },
+    );
+    if (picked != null) {
+      final formattedDate =
+          "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+      setState(() {
+        _dobController.text = formattedDate;
+      });
+    }
+  }
+
+  Widget _buildDobInputField({
+    required double scale,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4 * scale),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8 * scale,
+            offset: Offset(0, 2 * scale),
+          ),
+        ],
+      ),
+      padding:
+          EdgeInsets.symmetric(horizontal: 20 * scale, vertical: 8 * scale),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () => _selectDate(context),
+              behavior: HitTestBehavior.opaque,
+              child: IgnorePointer(
+                child: TextField(
+                  controller: _dobController,
+                  readOnly: true,
+                  style: GoogleFonts.inter(
+                    fontSize: 14 * scale,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF222222),
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Date of Birth',
+                    labelStyle: GoogleFonts.inter(
+                      fontSize: 11 * scale,
+                      color: const Color(0xFF9B9B9B),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    contentPadding: EdgeInsets.zero,
+                    filled: false,
+                    fillColor: Colors.transparent,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          if (_isSavingDob)
+            SizedBox(
+              width: 24 * scale,
+              height: 24 * scale,
+              child: const CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDB3022)),
+              ),
+            )
+          else if (_dobController.text != _originalDob) ...[  
+            SizedBox(width: 8 * scale),
+            ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      _isSavingDob = true;
+                    });
+                    try {
+                      final authService = AuthService();
+                      await authService.updateProfile(
+                        name: _nameController.text.trim(),
+                        dateOfBirth: _dobController.text.trim(),
+                        sales: _salesNotification,
+                        newArrivals: _newArrivalsNotification,
+                        deliveryStatus: _deliveryStatusNotification,
+                      );
+                      final authProvider =
+                          Provider.of<AuthProvider>(context, listen: false);
+                      await authProvider.checkAuthStatus();
+                      if (mounted) {
+                        setState(() {
+                          _originalDob = _dobController.text;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Cập nhật ngày sinh thành công!',
+                              style: GoogleFonts.inter(fontWeight: FontWeight.w500),
+                            ),
+                            backgroundColor: const Color(0xFF2AA95C),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Cập nhật ngày sinh thất bại: $e',
+                              style: GoogleFonts.inter(fontWeight: FontWeight.w500),
+                            ),
+                            backgroundColor: const Color(0xFFDB3022),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      }
+                    } finally {
+                      if (mounted) {
+                        setState(() {
+                          _isSavingDob = false;
+                        });
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFDB3022),
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(60 * scale, 36 * scale),
+                    padding: EdgeInsets.symmetric(horizontal: 16 * scale, vertical: 8 * scale),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16 * scale),
+                    ),
+                    elevation: 2,
+                  ),
+                  child: Text(
+                    'Save',
+                    style: GoogleFonts.inter(
+                      fontSize: 12 * scale,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+          ],
+        ],
       ),
     );
   }
@@ -360,9 +550,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SizedBox(height: 16 * scale),
 
                   // Date of birth input
-                  _buildInputField(
-                    label: 'Date of Birth',
-                    controller: _dobController,
+                  _buildDobInputField(
                     scale: scale,
                   ),
 
@@ -461,7 +649,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         borderRadius: BorderRadius.circular(4 * scale),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8 * scale,
             offset: Offset(0, 2 * scale),
           ),
@@ -516,7 +704,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Switch(
           value: value,
           onChanged: onChanged,
-          activeColor: Colors.white,
+          activeThumbColor: Colors.white,
           activeTrackColor: const Color(0xFF2AA95C),
           inactiveThumbColor: Colors.white,
           inactiveTrackColor: const Color(0xFFE0E0E0),

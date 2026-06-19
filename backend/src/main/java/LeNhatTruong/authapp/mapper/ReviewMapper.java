@@ -16,6 +16,7 @@ public class ReviewMapper {
         }
         return ReviewDTO.builder()
                 .id(review.getId())
+                .userId(review.getUser() != null ? review.getUser().getId() : null)
                 .name(review.getReviewerName())
                 .avatar(review.getReviewerAvatar())
                 .avatarUrl(review.getReviewerAvatarUrl())

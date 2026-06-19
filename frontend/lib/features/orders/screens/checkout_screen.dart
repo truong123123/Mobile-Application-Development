@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:le_nhat_truong/features/cart/providers/cart_provider.dart';
 import 'package:le_nhat_truong/features/auth/services/auth_service.dart';
 import 'package:le_nhat_truong/features/orders/screens/order_success_screen.dart';
+import 'package:le_nhat_truong/features/auth/screens/shipping_addresses_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -27,6 +28,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     super.initState();
     _loadUserCards();
+    _loadUserAddress();
+  }
+
+  Future<void> _loadUserAddress() async {
+    try {
+      final addresses = await AuthService().getUserAddresses();
+      if (addresses.isNotEmpty) {
+        final defaultAddress = addresses.firstWhere(
+          (addr) => addr['isDefault'] == true,
+          orElse: () => addresses.first,
+        );
+        setState(() {
+          _shippingName = defaultAddress['fullName'] ?? 'Jane Doe';
+          _shippingAddress = '${defaultAddress['addressLine1']}\n${defaultAddress['city']}, ${defaultAddress['state']} ${defaultAddress['postalCode']}, ${defaultAddress['country']}';
+        });
+      }
+    } catch (e) {
+      print('>>> Error loading user address: $e');
+    }
   }
 
   Future<void> _loadUserCards() async {
@@ -372,11 +392,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     _CardLogo(
                                         cardType: 'MasterCard', scale: scale),
                                     SizedBox(width: 12 * scale),
-                                    Text(
-                                      'MasterCard',
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14 * scale,
+                                    Expanded(
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'MasterCard',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14 * scale,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -409,11 +435,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   children: [
                                     _CardLogo(cardType: 'Visa', scale: scale),
                                     SizedBox(width: 12 * scale),
-                                    Text(
-                                      'Visa',
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14 * scale,
+                                    Expanded(
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Visa',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14 * scale,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -605,8 +637,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () =>
-                                    _showEditAddressBottomSheet(context, scale),
+                                onTap: () async {
+                                  final selected = await Navigator.push<Map<String, dynamic>>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const ShippingAddressesScreen(selectMode: true),
+                                    ),
+                                  );
+                                  if (selected != null) {
+                                    setState(() {
+                                      _shippingName = selected['fullName'] ?? '';
+                                      _shippingAddress = '${selected['addressLine1']}\n${selected['city']}, ${selected['state']} ${selected['postalCode']}, ${selected['country']}';
+                                    });
+                                  }
+                                },
                                 child: Text(
                                   'Change',
                                   style: GoogleFonts.inter(

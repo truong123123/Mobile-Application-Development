@@ -9,6 +9,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WishlistId implements Serializable {
-    private java.util.UUID userId;
+    private Long userId;
     private java.util.UUID productId;
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ReviewDTO {
     private Long id;
+    private Long userId;
     private String name;
     private String avatar;
     private String avatarUrl;

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.UUID;
 
@@ -22,7 +23,11 @@ public class CustomerAddress {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
+
+    @Column(name = "full_name")
+    private String fullName;
 
     @Column(name = "address_line1", nullable = false, columnDefinition = "TEXT")
     private String addressLine1;
@@ -30,18 +35,25 @@ public class CustomerAddress {
     @Column(name = "address_line2", columnDefinition = "TEXT")
     private String addressLine2;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "dial_code", nullable = false, length = 100)
+    @Column(name = "dial_code", length = 100)
     private String dialCode;
 
     @Column(nullable = false)
     private String country;
+
+    @Column(name = "state")
+    private String state;
 
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
     @Column(nullable = false)
     private String city;
+
+    @Column(name = "is_default")
+    @Builder.Default
+    private Boolean isDefault = false;
 }

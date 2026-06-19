@@ -38,4 +38,32 @@ public class WishlistServiceImpl implements WishlistService {
     public void deleteWishlist(WishlistId id) {
         wishlistRepository.deleteById(id);
     }
+
+    @Override
+    public List<Wishlist> getWishlistByUserId(Long userId) {
+        return wishlistRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Wishlist addToWishlist(Long userId, java.util.UUID productId) {
+        if (wishlistRepository.existsByUserIdAndProductId(userId, productId)) {
+            return wishlistRepository.findById(new WishlistId(userId, productId)).orElse(null);
+        }
+        Wishlist item = Wishlist.builder()
+                .userId(userId)
+                .productId(productId)
+                .createdAt(java.time.OffsetDateTime.now())
+                .build();
+        return wishlistRepository.save(item);
+    }
+
+    @Override
+    public void removeFromWishlist(Long userId, java.util.UUID productId) {
+        wishlistRepository.deleteByUserIdAndProductId(userId, productId);
+    }
+
+    @Override
+    public boolean isInWishlist(Long userId, java.util.UUID productId) {
+        return wishlistRepository.existsByUserIdAndProductId(userId, productId);
+    }
 }

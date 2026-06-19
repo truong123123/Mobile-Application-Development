@@ -11,4 +11,9 @@ public interface WishlistService {
     Wishlist saveWishlist(Wishlist wishlist);
     Wishlist updateWishlist(Wishlist wishlist);
     void deleteWishlist(WishlistId id);
+
+    List<Wishlist> getWishlistByUserId(Long userId);
+    Wishlist addToWishlist(Long userId, java.util.UUID productId);
+    void removeFromWishlist(Long userId, java.util.UUID productId);
+    boolean isInWishlist(Long userId, java.util.UUID productId);
 }

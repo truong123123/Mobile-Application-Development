@@ -19,7 +19,7 @@ public class Wishlist {
 
     @Id
     @Column(name = "user_id", nullable = false)
-    private java.util.UUID userId;
+    private Long userId;
 
     @Id
     @Column(name = "product_id", nullable = false)

@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:le_nhat_truong/features/orders/screens/my_orders_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/rating_reviews_screen.dart';
 import 'package:le_nhat_truong/core/constants/constants.dart';
+import 'package:le_nhat_truong/features/orders/services/order_service.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
+class OrderDetailsScreen extends StatefulWidget {
   final OrderItemData order;
   final VoidCallback onBack;
 
@@ -15,12 +16,67 @@ class OrderDetailsScreen extends StatelessWidget {
   });
 
   @override
+  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+}
+
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  bool _isUpdating = false;
+  late String _currentStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentStatus = widget.order.status;
+  }
+
+  Future<void> _markAsDelivered() async {
+    setState(() {
+      _isUpdating = true;
+    });
+    try {
+      await OrderService().updateOrderStatus(widget.order.orderNo, 'Delivered');
+      if (!mounted) return;
+      setState(() {
+        _currentStatus = 'Delivered';
+        _isUpdating = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Cập nhật trạng thái đơn hàng thành công!',
+            style: GoogleFonts.inter(fontWeight: FontWeight.w500),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: const Color(0xFF2AA95C),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      // Wait a brief moment to show success snackbar, then return to orders list which auto-refreshes
+      await Future.delayed(const Duration(milliseconds: 600));
+      if (mounted) {
+        widget.onBack();
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _isUpdating = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Lỗi: $e'),
+          backgroundColor: const Color(0xFFDB3022),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final scale = (MediaQuery.of(context).size.width / 375).clamp(0.5, 1.5);
 
     // Determine the status color
     Color statusColor;
-    switch (order.status) {
+    switch (_currentStatus) {
       case 'Delivered':
         statusColor = const Color(0xFF2AA95C); // Green
         break;
@@ -51,7 +107,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     color: const Color(0xFF222222),
                     size: 18 * scale,
                   ),
-                  onPressed: onBack,
+                  onPressed: widget.onBack,
                 ),
                 Text(
                   'Order Details',
@@ -89,7 +145,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          'Order №${order.orderNo}',
+                          'Order №${widget.order.orderNo}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.inter(
@@ -101,7 +157,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 8 * scale),
                       Text(
-                        order.date,
+                        widget.order.date,
                         style: GoogleFonts.inter(
                           fontSize: 14 * scale,
                           color: const Color(0xFF9B9B9B),
@@ -114,34 +170,84 @@ class OrderDetailsScreen extends StatelessWidget {
                   // Tracking No & Status row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Text(
+                              'Tracking number: ',
+                              style: GoogleFonts.inter(
+                                fontSize: 14 * scale,
+                                color: const Color(0xFF9B9B9B),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.order.trackingNumber,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.inter(
+                                  fontSize: 14 * scale,
+                                  color: const Color(0xFF222222),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 8 * scale),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Tracking number: ',
+                            _currentStatus,
                             style: GoogleFonts.inter(
                               fontSize: 14 * scale,
-                              color: const Color(0xFF9B9B9B),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            order.trackingNumber,
-                            style: GoogleFonts.inter(
-                              fontSize: 14 * scale,
-                              color: const Color(0xFF222222),
                               fontWeight: FontWeight.w600,
+                              color: statusColor,
                             ),
                           ),
+                          if (_currentStatus != 'Delivered' && _currentStatus != 'Cancelled') ...[
+                            SizedBox(height: 4 * scale),
+                            GestureDetector(
+                              onTap: _isUpdating ? null : _markAsDelivered,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8 * scale,
+                                  vertical: 4 * scale,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF2AA95C).withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(4 * scale),
+                                  border: Border.all(
+                                    color: const Color(0xFF2AA95C),
+                                    width: 1 * scale,
+                                  ),
+                                ),
+                                child: _isUpdating
+                                    ? SizedBox(
+                                        width: 12 * scale,
+                                        height: 12 * scale,
+                                        child: const CircularProgressIndicator(
+                                          strokeWidth: 1.5,
+                                          color: Color(0xFF2AA95C),
+                                        ),
+                                      )
+                                    : Text(
+                                        'Set Deli',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 10 * scale,
+                                          fontWeight: FontWeight.w700,
+                                          color: const Color(0xFF2AA95C),
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          ],
                         ],
-                      ),
-                      Text(
-                        order.status,
-                        style: GoogleFonts.inter(
-                          fontSize: 14 * scale,
-                          fontWeight: FontWeight.w600,
-                          color: statusColor,
-                        ),
                       ),
                     ],
                   ),
@@ -149,7 +255,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
                   // Items Count Title
                   Text(
-                    '${order.items.length} item${order.items.length > 1 ? 's' : ''}',
+                    '${widget.order.items.length} item${widget.order.items.length > 1 ? 's' : ''}',
                     style: GoogleFonts.inter(
                       fontSize: 14 * scale,
                       fontWeight: FontWeight.w700,
@@ -162,9 +268,9 @@ class OrderDetailsScreen extends StatelessWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: order.items.length,
+                    itemCount: widget.order.items.length,
                     itemBuilder: (context, index) {
-                      final item = order.items[index];
+                      final item = widget.order.items[index];
                       return Padding(
                         padding: EdgeInsets.only(bottom: 24 * scale),
                         child: _buildItemCard(item, scale),
@@ -187,18 +293,18 @@ class OrderDetailsScreen extends StatelessWidget {
 
                   // Order Details attributes (Shipping address, payment method, etc.)
                   _buildInfoRow(
-                      'Shipping Address:', order.shippingAddress, scale),
+                      'Shipping Address:', widget.order.shippingAddress, scale),
                   SizedBox(height: 16 * scale),
                   _buildPaymentMethodRow(scale),
                   SizedBox(height: 16 * scale),
                   _buildInfoRow(
-                      'Delivery method:', order.deliveryMethod, scale),
+                      'Delivery method:', widget.order.deliveryMethod, scale),
                   SizedBox(height: 16 * scale),
-                  _buildInfoRow('Discount:', order.discount, scale),
+                  _buildInfoRow('Discount:', widget.order.discount, scale),
                   SizedBox(height: 16 * scale),
                   _buildInfoRow(
                       'Total Amount:',
-                      '${order.totalAmount % 1 == 0 ? order.totalAmount.toInt() : order.totalAmount}\$',
+                      '${widget.order.totalAmount % 1 == 0 ? widget.order.totalAmount.toInt() : widget.order.totalAmount}\$',
                       scale,
                       isTotal: true),
 
@@ -236,9 +342,8 @@ class OrderDetailsScreen extends StatelessWidget {
                             child: Text(
                               'Reorder',
                               style: GoogleFonts.inter(
-                                fontSize: 14 * scale,
-                                fontWeight: FontWeight.w600,
-                              ),
+                                  fontSize: 14 * scale,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -249,13 +354,13 @@ class OrderDetailsScreen extends StatelessWidget {
                           height: 48 * scale,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (order.items.isNotEmpty) {
+                              if (widget.order.items.isNotEmpty) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => RatingReviewsScreen(
-                                      productName: order.items.first.title,
-                                      productId: order.items.first.productId,
+                                      productName: widget.order.items.first.title,
+                                      productId: widget.order.items.first.productId,
                                     ),
                                   ),
                                 );
@@ -351,6 +456,8 @@ class OrderDetailsScreen extends StatelessWidget {
                     children: [
                       Text(
                         item.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.outfit(
                           fontSize: 16 * scale,
                           fontWeight: FontWeight.w700,
@@ -360,6 +467,8 @@ class OrderDetailsScreen extends StatelessWidget {
                       SizedBox(height: 2 * scale),
                       Text(
                         item.brand,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.inter(
                           fontSize: 11 * scale,
                           color: const Color(0xFF9B9B9B),
@@ -376,12 +485,16 @@ class OrderDetailsScreen extends StatelessWidget {
                               color: const Color(0xFF9B9B9B),
                             ),
                           ),
-                          Text(
-                            item.color,
-                            style: GoogleFonts.inter(
-                              fontSize: 11 * scale,
-                              color: const Color(0xFF222222),
-                              fontWeight: FontWeight.w500,
+                          Flexible(
+                            child: Text(
+                              item.color,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                fontSize: 11 * scale,
+                                color: const Color(0xFF222222),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           SizedBox(width: 12 * scale),
@@ -392,12 +505,16 @@ class OrderDetailsScreen extends StatelessWidget {
                               color: const Color(0xFF9B9B9B),
                             ),
                           ),
-                          Text(
-                            item.size,
-                            style: GoogleFonts.inter(
-                              fontSize: 11 * scale,
-                              color: const Color(0xFF222222),
-                              fontWeight: FontWeight.w500,
+                          Flexible(
+                            child: Text(
+                              item.size,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                fontSize: 11 * scale,
+                                color: const Color(0xFF222222),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],
@@ -498,7 +615,7 @@ class OrderDetailsScreen extends StatelessWidget {
           child: Row(
             children: [
               // Mastercard Logo Overlay
-              if (order.paymentMethodType.toLowerCase() == 'mastercard')
+              if (widget.order.paymentMethodType.toLowerCase() == 'mastercard')
                 Container(
                   width: 32 * scale,
                   height: 20 * scale,
@@ -541,7 +658,7 @@ class OrderDetailsScreen extends StatelessWidget {
               SizedBox(width: 8 * scale),
               Expanded(
                 child: Text(
-                  order.paymentMethodCardNumber,
+                  widget.order.paymentMethodCardNumber,
                   style: GoogleFonts.inter(
                     fontSize: 14 * scale,
                     color: const Color(0xFF222222),

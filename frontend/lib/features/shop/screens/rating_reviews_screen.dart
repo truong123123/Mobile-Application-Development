@@ -65,6 +65,13 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
 
     Map<String, dynamic>? existing;
     for (final review in reviews) {
+      // Check direct userId from backend API
+      final userId = review['userId'];
+      if (userId != null && userId == _currentUserId) {
+        existing = review;
+        break;
+      }
+      // Fallback for nested map structure
       final user = review['user'];
       if (user is Map<String, dynamic>) {
         final id = user['id'];
@@ -395,6 +402,19 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
             bottom: 24 * scale,
             child: FloatingActionButton.extended(
               onPressed: () {
+                if (_hasCurrentUserReview) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Bạn đã đánh giá sản phẩm này rồi. Lần gửi này sẽ chỉnh sửa đánh giá hiện tại.',
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500),
+                      ),
+                      backgroundColor: const Color(0xFFE65100),
+                      behavior: SnackBarBehavior.floating,
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                }
                 _showWriteReviewBottomSheet(
                   context,
                   scale,
@@ -712,8 +732,9 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
     double scale,
     int rating,
     String content,
-    List<String> photos,
-  ) {
+    List<String> photos, {
+    bool isEditing = false,
+  }) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -759,7 +780,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                       onPressed: () => Navigator.pop(ctx),
                     ),
                     Text(
-                      'Your review',
+                      isEditing ? 'Edit your review' : 'Your review',
                       style: GoogleFonts.outfit(
                         fontSize: 18 * scale,
                         fontWeight: FontWeight.w700,
@@ -1024,7 +1045,9 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'Cảm ơn bạn đã gửi đánh giá!',
+                                            isEditing
+                                                ? 'Cập nhật đánh giá thành công!'
+                                                : 'Cảm ơn bạn đã gửi đánh giá!',
                                             style: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w500),
                                           ),
@@ -1066,7 +1089,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                   ),
                                 ),
                                 child: Text(
-                                  'Send',
+                                  isEditing ? 'Update' : 'Send',
                                   style: GoogleFonts.inter(
                                     fontSize: 14 * scale,
                                     fontWeight: FontWeight.w700,
@@ -1149,7 +1172,36 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 24 * scale),
+                      SizedBox(height: 16 * scale),
+
+                      if (existingReview != null) ...[
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(12 * scale),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFF3E0),
+                            borderRadius: BorderRadius.circular(8 * scale),
+                            border: Border.all(color: const Color(0xFFFFB74D)),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.info_outline, color: const Color(0xFFE65100), size: 20 * scale),
+                              SizedBox(width: 8 * scale),
+                              Expanded(
+                                child: Text(
+                                  'Bạn đã đánh giá sản phẩm này rồi. Lần gửi này sẽ chỉnh sửa/cập nhật lại đánh giá của bạn.',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 12 * scale,
+                                    color: const Color(0xFFE65100),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 12 * scale),
+                      ],
 
                       // Title
                       Center(
@@ -1387,6 +1439,7 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                               currentRating,
                               textController.text.trim(),
                               List<String>.from(pickedPhotos),
+                              isEditing: existingReview != null,
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -1399,7 +1452,9 @@ class _RatingReviewsScreenState extends State<RatingReviewsScreen> {
                                 const Color(0xFFDB3022).withOpacity(0.4),
                           ),
                           child: Text(
-                            'SEND REVIEW',
+                            existingReview != null
+                                ? 'UPDATE REVIEW'
+                                : 'SEND REVIEW',
                             style: GoogleFonts.inter(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

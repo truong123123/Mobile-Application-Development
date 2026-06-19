@@ -121,7 +121,12 @@ class AuthService {
       body: jsonEncode(orderPayload),
     );
     if (response.statusCode != 200) {
-      throw Exception('Không thể tạo đơn hàng trên server');
+      try {
+        final body = jsonDecode(utf8.decode(response.bodyBytes));
+        throw Exception(body['message'] ?? 'Không thể tạo đơn hàng trên server');
+      } catch (_) {
+        throw Exception('Không thể tạo đơn hàng trên server');
+      }
     }
   }
 
@@ -240,6 +245,78 @@ class AuthService {
         'Authorization': 'Bearer $token',
       },
     );
+  }
+
+  Future<List<Map<String, dynamic>>> getUserAddresses() async {
+    final token = await getAccessToken();
+    final response = await http.get(
+      Uri.parse('${AppConstants.baseUrl}/api/users/addresses'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
+      return List<Map<String, dynamic>>.from(data);
+    } else {
+      try {
+        final body = jsonDecode(utf8.decode(response.bodyBytes));
+        throw Exception(body['message'] ?? 'Không thể lấy danh sách địa chỉ');
+      } catch (_) {
+        throw Exception('Không thể lấy danh sách địa chỉ');
+      }
+    }
+  }
+
+  Future<Map<String, dynamic>> addUserAddress(Map<String, dynamic> data) async {
+    final token = await getAccessToken();
+    final response = await http.post(
+      Uri.parse('${AppConstants.baseUrl}/api/users/addresses'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(data),
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(utf8.decode(response.bodyBytes));
+    } else {
+      final body = jsonDecode(response.body);
+      throw Exception(body['message'] ?? 'Không thể thêm địa chỉ');
+    }
+  }
+
+  Future<Map<String, dynamic>> updateUserAddress(String id, Map<String, dynamic> data) async {
+    final token = await getAccessToken();
+    final response = await http.put(
+      Uri.parse('${AppConstants.baseUrl}/api/users/addresses/$id'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(data),
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(utf8.decode(response.bodyBytes));
+    } else {
+      final body = jsonDecode(response.body);
+      throw Exception(body['message'] ?? 'Không thể cập nhật địa chỉ');
+    }
+  }
+
+  Future<void> deleteUserAddress(String id) async {
+    final token = await getAccessToken();
+    final response = await http.delete(
+      Uri.parse('${AppConstants.baseUrl}/api/users/addresses/$id'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Không thể xóa địa chỉ');
+    }
   }
 
   Future<void> logout() async {

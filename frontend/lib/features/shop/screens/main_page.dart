@@ -20,6 +20,8 @@ import 'package:le_nhat_truong/features/shop/screens/settings_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/filters_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/admin_product_screen.dart';
 import 'package:le_nhat_truong/features/shop/screens/collections_screen.dart';
+import 'package:le_nhat_truong/features/auth/screens/shipping_addresses_screen.dart';
+import 'package:le_nhat_truong/features/shop/screens/search_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -452,7 +454,13 @@ class _MainPageState extends State<MainPage> {
                 IconButton(
                   icon: Icon(Icons.search,
                       color: const Color(0xFF222222), size: 24 * scale),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const SearchScreen()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -730,7 +738,13 @@ class _MainPageState extends State<MainPage> {
                 IconButton(
                   icon: Icon(Icons.search,
                       color: const Color(0xFF222222), size: 24 * scale),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const SearchScreen()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -1758,47 +1772,6 @@ class _ProfileTabState extends State<_ProfileTab> {
     }
   }
 
-  Future<void> _simulateAdd(String type) async {
-    setState(() {
-      _statsLoading = true;
-    });
-    try {
-      if (type == 'order') {
-        await _authService.simulateAddOrder();
-      } else if (type == 'address') {
-        await _authService.simulateAddAddress();
-      } else if (type == 'card') {
-        await _authService.simulateAddCard();
-      } else if (type == 'coupon') {
-        await _authService.simulateAddCoupon();
-      } else if (type == 'review') {
-        await _authService.simulateAddReview();
-      }
-      await _fetchStats();
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content:
-                Text('Simulated adding $type and refreshed database stats!'),
-            backgroundColor: const Color(0xFF2E7D32),
-            duration: const Duration(seconds: 1),
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _statsLoading = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $e'),
-            backgroundColor: const Color(0xFFDB3022),
-          ),
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1963,7 +1936,15 @@ class _ProfileTabState extends State<_ProfileTab> {
             title: 'Shipping addresses',
             subtitle: _statsLoading ? 'Loading...' : '$_addressCount addresses',
             scale: widget.scale,
-            onTap: () {},
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ShippingAddressesScreen(selectMode: false),
+                ),
+              );
+              _fetchStats();
+            },
           ),
           _buildMenuItem(
             title: 'Payment methods',
@@ -1985,16 +1966,17 @@ class _ProfileTabState extends State<_ProfileTab> {
             scale: widget.scale,
             onTap: () {},
           ),
-          _buildMenuItem(
-            title: 'Product Management',
-            subtitle: 'Add, edit or delete products (Admin)',
-            scale: widget.scale,
-            onTap: () {
-              setState(() {
-                _currentView = 'admin_products';
-              });
-            },
-          ),
+          if (user != null && user.roles.contains('ROLE_ADMIN'))
+            _buildMenuItem(
+              title: 'Product Management',
+              subtitle: 'Add, edit or delete products (Admin)',
+              scale: widget.scale,
+              onTap: () {
+                setState(() {
+                  _currentView = 'admin_products';
+                });
+              },
+            ),
           _buildMenuItem(
             title: 'Settings',
             subtitle: 'Notifications, password',
@@ -2006,103 +1988,6 @@ class _ProfileTabState extends State<_ProfileTab> {
             },
           ),
           SizedBox(height: 16 * widget.scale),
-          // Simulation Dashboard Panel
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16 * widget.scale),
-            child: Container(
-              padding: EdgeInsets.all(16 * widget.scale),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16 * widget.scale),
-                border: Border.all(color: const Color(0x0A000000)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
-                    blurRadius: 8 * widget.scale,
-                    offset: Offset(0, 4 * widget.scale),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.dashboard_customize,
-                          color: const Color(0xFFDB3022),
-                          size: 18 * widget.scale),
-                      SizedBox(width: 8 * widget.scale),
-                      Text(
-                        'Database Sync Simulation',
-                        style: GoogleFonts.outfit(
-                          fontSize: 14 * widget.scale,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xFF222222),
-                        ),
-                      ),
-                      if (_statsLoading) ...[
-                        const Spacer(),
-                        SizedBox(
-                          width: 12 * widget.scale,
-                          height: 12 * widget.scale,
-                          child: const CircularProgressIndicator(
-                            strokeWidth: 1.5,
-                            color: Color(0xFFDB3022),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                  SizedBox(height: 6 * widget.scale),
-                  Text(
-                    'Tap buttons below to simulate actual database writes. Values will auto-increment and synchronize instantly!',
-                    style: GoogleFonts.inter(
-                      fontSize: 10.5 * widget.scale,
-                      color: const Color(0xFF9B9B9B),
-                    ),
-                  ),
-                  SizedBox(height: 12 * widget.scale),
-                  Wrap(
-                    spacing: 8 * widget.scale,
-                    runSpacing: 8 * widget.scale,
-                    children: [
-                      _buildSimulationButton(
-                        label: '+ Order',
-                        icon: Icons.shopping_bag_outlined,
-                        onTap: () => _simulateAdd('order'),
-                        scale: widget.scale,
-                      ),
-                      _buildSimulationButton(
-                        label: '+ Address',
-                        icon: Icons.location_on_outlined,
-                        onTap: () => _simulateAdd('address'),
-                        scale: widget.scale,
-                      ),
-                      _buildSimulationButton(
-                        label: '+ Card',
-                        icon: Icons.credit_card_outlined,
-                        onTap: () => _simulateAdd('card'),
-                        scale: widget.scale,
-                      ),
-                      _buildSimulationButton(
-                        label: '+ Promo',
-                        icon: Icons.local_offer_outlined,
-                        onTap: () => _simulateAdd('coupon'),
-                        scale: widget.scale,
-                      ),
-                      _buildSimulationButton(
-                        label: '+ Review',
-                        icon: Icons.rate_review_outlined,
-                        onTap: () => _simulateAdd('review'),
-                        scale: widget.scale,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 24 * widget.scale),
           _buildMenuItem(
             title: 'Log out',
             subtitle: 'Sign out of your account',
@@ -2165,41 +2050,7 @@ class _ProfileTabState extends State<_ProfileTab> {
     );
   }
 
-  Widget _buildSimulationButton({
-    required String label,
-    required IconData icon,
-    required VoidCallback onTap,
-    required double scale,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(20 * scale),
-      child: Container(
-        padding:
-            EdgeInsets.symmetric(horizontal: 10 * scale, vertical: 6 * scale),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF9F9F9),
-          border: Border.all(color: const Color(0xFFEEEEEE)),
-          borderRadius: BorderRadius.circular(20 * scale),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 13 * scale, color: const Color(0xFF555555)),
-            SizedBox(width: 4 * scale),
-            Text(
-              label,
-              style: GoogleFonts.inter(
-                fontSize: 11.5 * scale,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xFF555555),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   Future<void> _logout(BuildContext context) async {
     final confirmed = await showDialog<bool>(

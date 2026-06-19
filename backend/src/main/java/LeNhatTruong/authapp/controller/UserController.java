@@ -151,68 +151,111 @@ public class UserController {
 
     @SuppressWarnings("unchecked")
     @PostMapping("/orders")
-    public ResponseEntity<OrderDTO> createOrder(
+    public ResponseEntity<?> createOrder(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody Map<String, Object> request
     ) {
-        User user = userDetails.getUser();
-        Customer customer = getOrCreateCustomer(user);
-        
-        OrderStatus defaultStatus = orderStatusRepository.findAll().stream()
-                .filter(s -> s.getStatusName().equalsIgnoreCase("Processing"))
-                .findFirst()
-                .orElseGet(() -> orderStatusRepository.save(OrderStatus.builder()
-                        .statusName("Processing")
-                        .color("#FFC107")
-                        .createdAt(java.time.OffsetDateTime.now())
-                        .updatedAt(java.time.OffsetDateTime.now())
-                        .build()));
+        try {
+            User user = userDetails.getUser();
+            Customer customer = getOrCreateCustomer(user);
+            
+            OrderStatus defaultStatus = orderStatusRepository.findAll().stream()
+                    .filter(s -> s.getStatusName().equalsIgnoreCase("Processing"))
+                    .findFirst()
+                    .orElseGet(() -> orderStatusRepository.save(OrderStatus.builder()
+                            .statusName("Processing")
+                            .color("#FFC107")
+                            .createdAt(java.time.OffsetDateTime.now())
+                            .updatedAt(java.time.OffsetDateTime.now())
+                            .build()));
 
-        double totalAmount = request.get("totalAmount") != null ? ((Number) request.get("totalAmount")).doubleValue() : 0.0;
-        String shippingAddress = (String) request.get("shippingAddress");
-        String deliveryMethod = (String) request.get("deliveryMethod");
-        String paymentMethod = (String) request.get("paymentMethod");
-        double discount = request.get("discount") != null ? ((Number) request.get("discount")).doubleValue() : 0.0;
+            double totalAmount = request.get("totalAmount") != null ? ((Number) request.get("totalAmount")).doubleValue() : 0.0;
+            String shippingAddress = (String) request.get("shippingAddress");
+            String deliveryMethod = (String) request.get("deliveryMethod");
+            String paymentMethod = (String) request.get("paymentMethod");
+            double discount = request.get("discount") != null ? ((Number) request.get("discount")).doubleValue() : 0.0;
 
-        Order order = Order.builder()
-                .customer(customer)
-                .createdAt(java.time.OffsetDateTime.now())
-                .orderStatus(defaultStatus)
-                .totalAmount(totalAmount)
-                .shippingAddress(shippingAddress)
-                .deliveryMethod(deliveryMethod)
-                .paymentMethod(paymentMethod)
-                .discount(discount)
-                .build();
+            Order order = Order.builder()
+                    .customer(customer)
+                    .createdAt(java.time.OffsetDateTime.now())
+                    .orderStatus(defaultStatus)
+                    .totalAmount(totalAmount)
+                    .shippingAddress(shippingAddress)
+                    .deliveryMethod(deliveryMethod)
+                    .paymentMethod(paymentMethod)
+                    .discount(discount)
+                    .build();
 
-        List<OrderItem> items = new java.util.ArrayList<>();
-        if (request.get("items") != null) {
-            List<Map<String, Object>> itemsList = (List<Map<String, Object>>) request.get("items");
-            for (Map<String, Object> itemReq : itemsList) {
-                String productIdStr = (String) itemReq.get("productId");
-                UUID productId = UUID.fromString(productIdStr);
-                Product product = productRepository.findById(productId)
-                        .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sản phẩm"));
-                
-                int quantity = itemReq.get("quantity") != null ? ((Number) itemReq.get("quantity")).intValue() : 1;
-                double price = itemReq.get("price") != null ? ((Number) itemReq.get("price")).doubleValue() : 0.0;
-                String selectedSize = (String) itemReq.get("selectedSize");
-                String selectedColor = (String) itemReq.get("selectedColor");
+            List<OrderItem> items = new java.util.ArrayList<>();
+            if (request.get("items") != null) {
+                List<Map<String, Object>> itemsList = (List<Map<String, Object>>) request.get("items");
+                for (Map<String, Object> itemReq : itemsList) {
+                    String productIdStr = (String) itemReq.get("productId");
+                    UUID productId = UUID.fromString(productIdStr);
+                    Product product = productRepository.findById(productId)
+                            .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sản phẩm"));
+                    
+                    int quantity = itemReq.get("quantity") != null ? ((Number) itemReq.get("quantity")).intValue() : 1;
+                    double price = itemReq.get("price") != null ? ((Number) itemReq.get("price")).doubleValue() : 0.0;
+                    String selectedSize = (String) itemReq.get("selectedSize");
+                    String selectedColor = (String) itemReq.get("selectedColor");
 
-                items.add(OrderItem.builder()
-                        .order(order)
-                        .product(product)
-                        .quantity(quantity)
-                        .price(price)
-                        .selectedSize(selectedSize)
-                        .selectedColor(selectedColor)
-                        .build());
+                    items.add(OrderItem.builder()
+                            .order(order)
+                            .product(product)
+                            .quantity(quantity)
+                            .price(price)
+                            .selectedSize(selectedSize)
+                            .selectedColor(selectedColor)
+                            .build());
+                }
             }
-        }
-        order.setItems(items);
+            order.setItems(items);
 
-        Order saved = orderRepository.save(order);
-        return ResponseEntity.ok(orderMapper.toDTO(saved));
+            Order saved = orderRepository.save(order);
+            return ResponseEntity.ok(orderMapper.toDTO(saved));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("message", e.getMessage() != null ? e.getMessage() : "Không thể tạo đơn hàng"));
+        }
+    }
+
+    @PutMapping("/orders/{orderId}/status")
+    public ResponseEntity<?> updateOrderStatus(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable String orderId,
+            @RequestBody Map<String, String> request
+    ) {
+        try {
+            Order order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy đơn hàng"));
+            
+            // Check if order belongs to the user
+            if (!order.getCustomer().getUser().getId().equals(userDetails.getUser().getId())) {
+                return ResponseEntity.status(403).body(Map.of("message", "Bạn không có quyền sửa đơn hàng này"));
+            }
+            
+            String statusName = request.get("status");
+            OrderStatus newStatus = orderStatusRepository.findAll().stream()
+                    .filter(s -> s.getStatusName().equalsIgnoreCase(statusName))
+                    .findFirst()
+                    .orElseGet(() -> orderStatusRepository.save(OrderStatus.builder()
+                            .statusName(statusName)
+                            .color(statusName.equalsIgnoreCase("Delivered") ? "#4CAF50" : "#FFC107")
+                            .createdAt(java.time.OffsetDateTime.now())
+                            .updatedAt(java.time.OffsetDateTime.now())
+                            .build()));
+            
+            order.setOrderStatus(newStatus);
+            if (statusName.equalsIgnoreCase("Delivered")) {
+                order.setOrderDeliveredCustomerDate(java.time.OffsetDateTime.now());
+            }
+            Order saved = orderRepository.save(order);
+            return ResponseEntity.ok(orderMapper.toDTO(saved));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("message", e.getMessage() != null ? e.getMessage() : "Không thể cập nhật trạng thái đơn hàng"));
+        }
     }
 
     @GetMapping("/cards")
@@ -261,18 +304,140 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/addresses")
+    public ResponseEntity<?> getMyAddresses(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        try {
+            User user = userDetails.getUser();
+            Customer customer = getOrCreateCustomer(user);
+            List<CustomerAddress> addresses = addressRepository.findByCustomerUserId(user.getId());
+            return ResponseEntity.ok(addresses);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("message", e.getMessage() != null ? e.getMessage() : "Không thể lấy danh sách địa chỉ"));
+        }
+    }
+
+    @PostMapping("/addresses")
+    public ResponseEntity<?> addAddress(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestBody Map<String, Object> request
+    ) {
+        User user = userDetails.getUser();
+        Customer customer = getOrCreateCustomer(user);
+
+        boolean isDefault = request.get("isDefault") != null && (Boolean) request.get("isDefault");
+
+        if (isDefault) {
+            List<CustomerAddress> existing = addressRepository.findByCustomerUserId(user.getId());
+            for (CustomerAddress addr : existing) {
+                if (Boolean.TRUE.equals(addr.getIsDefault())) {
+                    addr.setIsDefault(false);
+                    addressRepository.save(addr);
+                }
+            }
+        }
+
+        CustomerAddress address = CustomerAddress.builder()
+                .customer(customer)
+                .fullName((String) request.get("fullName"))
+                .addressLine1((String) request.get("addressLine1"))
+                .addressLine2((String) request.get("addressLine2"))
+                .city((String) request.get("city"))
+                .state((String) request.get("state"))
+                .country((String) request.get("country"))
+                .postalCode((String) request.get("postalCode"))
+                .phoneNumber(request.get("phoneNumber") != null ? (String) request.get("phoneNumber") : "")
+                .dialCode(request.get("dialCode") != null ? (String) request.get("dialCode") : "")
+                .isDefault(isDefault)
+                .build();
+
+        try {
+            CustomerAddress saved = addressRepository.save(address);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("message", e.getMessage() != null ? e.getMessage() : "Không thể thêm địa chỉ"));
+        }
+    }
+
+    @PutMapping("/addresses/{id}")
+    public ResponseEntity<?> updateAddress(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable UUID id,
+            @RequestBody Map<String, Object> request
+    ) {
+        User user = userDetails.getUser();
+        CustomerAddress address = addressRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Address not found"));
+
+        if (!address.getCustomer().getUser().getId().equals(user.getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        boolean isDefault = request.get("isDefault") != null && (Boolean) request.get("isDefault");
+
+        if (isDefault) {
+            List<CustomerAddress> existing = addressRepository.findByCustomerUserId(user.getId());
+            for (CustomerAddress addr : existing) {
+                if (!addr.getId().equals(id) && Boolean.TRUE.equals(addr.getIsDefault())) {
+                    addr.setIsDefault(false);
+                    addressRepository.save(addr);
+                }
+            }
+        }
+
+        if (request.containsKey("fullName")) address.setFullName((String) request.get("fullName"));
+        if (request.containsKey("addressLine1")) address.setAddressLine1((String) request.get("addressLine1"));
+        if (request.containsKey("addressLine2")) address.setAddressLine2((String) request.get("addressLine2"));
+        if (request.containsKey("city")) address.setCity((String) request.get("city"));
+        if (request.containsKey("state")) address.setState((String) request.get("state"));
+        if (request.containsKey("country")) address.setCountry((String) request.get("country"));
+        if (request.containsKey("postalCode")) address.setPostalCode((String) request.get("postalCode"));
+        if (request.containsKey("phoneNumber")) address.setPhoneNumber((String) request.get("phoneNumber"));
+        if (request.containsKey("dialCode")) address.setDialCode((String) request.get("dialCode"));
+        if (request.containsKey("isDefault")) address.setIsDefault(isDefault);
+
+        try {
+            CustomerAddress saved = addressRepository.save(address);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("message", e.getMessage() != null ? e.getMessage() : "Không thể cập nhật địa chỉ"));
+        }
+    }
+
+    @DeleteMapping("/addresses/{id}")
+    public ResponseEntity<Void> deleteAddress(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable UUID id
+    ) {
+        User user = userDetails.getUser();
+        CustomerAddress address = addressRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Address not found"));
+
+        if (!address.getCustomer().getUser().getId().equals(user.getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        addressRepository.delete(address);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/simulate/address")
     public ResponseEntity<Void> simulateAddress(@AuthenticationPrincipal CustomUserDetails userDetails) {
         User user = userDetails.getUser();
         Customer customer = getOrCreateCustomer(user);
         addressRepository.save(CustomerAddress.builder()
                 .customer(customer)
+                .fullName("Simulation User")
                 .addressLine1("Simulation Address " + (addressRepository.countByCustomerUserId(user.getId()) + 1))
                 .city("Hanoi")
+                .state("Cau Giay")
                 .country("Vietnam")
                 .postalCode("10000")
                 .phoneNumber("111222333")
                 .dialCode("+84")
+                .isDefault(false)
                 .build());
         return ResponseEntity.ok().build();
     }

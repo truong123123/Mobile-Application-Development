@@ -406,27 +406,35 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               fontSize: 11 * scale,
                               color: const Color(0xFF9B9B9B)),
                         ),
-                        Text(
-                          item.selectedColor,
-                          style: GoogleFonts.inter(
-                            fontSize: 11 * scale,
-                            color: const Color(0xFF222222),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Text(
+                            item.selectedColor,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 11 * scale,
+                              color: const Color(0xFF222222),
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        SizedBox(width: 12 * scale),
+                        SizedBox(width: 8 * scale),
                         Text(
                           'Size: ',
                           style: GoogleFonts.inter(
                               fontSize: 11 * scale,
                               color: const Color(0xFF9B9B9B)),
                         ),
-                        Text(
-                          item.selectedSize,
-                          style: GoogleFonts.inter(
-                            fontSize: 11 * scale,
-                            color: const Color(0xFF222222),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Text(
+                            item.selectedSize,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 11 * scale,
+                              color: const Color(0xFF222222),
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
@@ -807,26 +815,35 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               fontSize: 10 * scale,
                               color: const Color(0xFF9B9B9B)),
                         ),
-                        Text(
-                          item.selectedColor,
-                          style: GoogleFonts.inter(
-                            fontSize: 10 * scale,
-                            color: const Color(0xFF222222),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Text(
+                            item.selectedColor,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 10 * scale,
+                              color: const Color(0xFF222222),
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
+                        SizedBox(width: 4 * scale),
                         Text(
-                          '  Size: ',
+                          'Size: ',
                           style: GoogleFonts.inter(
                               fontSize: 10 * scale,
                               color: const Color(0xFF9B9B9B)),
                         ),
-                        Text(
-                          item.selectedSize,
-                          style: GoogleFonts.inter(
-                            fontSize: 10 * scale,
-                            color: const Color(0xFF222222),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Text(
+                            item.selectedSize,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              fontSize: 10 * scale,
+                              color: const Color(0xFF222222),
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
